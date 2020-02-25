@@ -56,7 +56,7 @@ __cr cmd_info (char *args) {
     return 0;
   }
   if (strcmp(arg, "r") == 0)  {
-    #define printR(r) printf("e"#r"\t\t0x%x\t\t%d\n", cpu.e##r, cpu.e##r)
+    #define printR(r) printf(#r"\t\t%x\t\t%d\n", cpu.e##r, cpu.e##r)
     printR(ax);
     printR(bx);
     printR(cx);
