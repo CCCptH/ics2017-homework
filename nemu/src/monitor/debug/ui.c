@@ -52,8 +52,8 @@ __cr cmd_si(char *args) {
 __cr cmd_info (char *args) {
   char *arg __tk;
   if (strcmp(arg, "r") == 0)  {
-    #define rg(r) #r"\t\t%x\t\t%d"
-    printf(rg("eax"), cpu.eax, cpu.eax);
+    #define rg(r) #r"\t\t%x\t\t%d\n"
+    printf(rg(eax), cpu.eax, cpu.eax);
   }
   else if (strcmp(arg, "w") == 0) {
 
