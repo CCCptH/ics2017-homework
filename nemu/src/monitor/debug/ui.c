@@ -77,6 +77,7 @@ static struct {
   { "q", "Exit NEMU", cmd_q },
 
   /* TODO: Add more commands */
+  { "info", "print info", cmd_info }
 
 };
 
