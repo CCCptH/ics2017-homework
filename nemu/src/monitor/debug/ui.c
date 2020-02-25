@@ -90,8 +90,9 @@ __cr cmd_x (char *args) {
   }
   bool success_flag;
   // int result = expr(arg, &success_flag);
-  int result = atoi(arg);
-  paddr_read(result, n);
+  int addr = atoi(arg);
+  uint32_t mem = paddr_read(addr, n);
+  printf("mem: %d\n", mem);
   return 0;
 }
 
