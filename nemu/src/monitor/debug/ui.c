@@ -36,7 +36,36 @@ static int cmd_q(char *args) {
   return -1;
 }
 
+#define __cr static int
+#define __tk = strtok(NULL, " ")
 static int cmd_help(char *args);
+
+__cr cmd_si(char *args) {
+  char *arg __tk;
+  if (arg)
+    cpu_exec(1);
+  else
+    cpu_exec(atoi(arg));
+  return 0;
+}
+
+__cr cmd_info (char *args) {
+  char *arg __tk;
+  if (strcmp(arg, "r") == 0)  {
+    #define rg(r) #r"\t\t%x\t\t%d"
+    printf(rg(eax), cpu.eax, cpu.eax);
+  }
+  else if (strcmp(arg, "w") == 0) {
+
+  }
+  else {
+    printf("Undefine Args. \n\t r: print registers\n\t w: print watchpoints\n");
+  }
+  return 0;
+}
+
+#undef __cr
+#undef __tk
 
 static struct {
   char *name;
