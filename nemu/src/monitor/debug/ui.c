@@ -56,7 +56,7 @@ __cr cmd_info (char *args) {
     return 0;
   }
   if (strcmp(arg, "r") == 0)  {
-    #define printER(r) printf(#r"\t\t%x\t\t%d\n", cpu.e##r, cpu.e##r)
+    #define printER(r) printf(#r"\t\t%x\t\t%u\n", cpu.e##r, cpu.e##r)
     printER(ax);
     printER(bx);
     printER(cx);
@@ -91,8 +91,9 @@ __cr cmd_x (char *args) {
   bool success_flag;
   // int result = expr(arg, &success_flag);
   int addr = atoi(arg);
-  uint32_t mem = paddr_read(addr, n);
-  printf("mem: %d\n", mem);
+  int i;
+  for (i=0; i < n; i++)
+    printf("mem: %u\n", paddr_read(addr, 4));
   return 0;
 }
 
