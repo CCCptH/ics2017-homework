@@ -42,7 +42,7 @@ static int cmd_help(char *args);
 
 __cr cmd_si(char *args) {
   char *arg __tk;
-  if (arg)
+  if (arg != NULL)
     cpu_exec(1);
   else
     cpu_exec(atoi(arg));
