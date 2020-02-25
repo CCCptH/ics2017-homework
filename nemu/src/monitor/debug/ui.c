@@ -56,16 +56,16 @@ __cr cmd_info (char *args) {
     return 0;
   }
   if (strcmp(arg, "r") == 0)  {
-    #define printR(r) printf(#r"\t\t%x\t\t%d\n", cpu.e##r, cpu.e##r)
-    printR(ax);
-    printR(bx);
-    printR(cx);
-    printR(dx);
-    printR(sp);
-    printR(bp);
-    printR(si);
-    printR(di);
-    #undef printR
+    #define printER(r) printf(#r"\t\t%x\t\t%d\n", cpu.e##r, cpu.e##r)
+    printER(ax);
+    printER(bx);
+    printER(cx);
+    printER(dx);
+    printER(sp);
+    printER(bp);
+    printER(si);
+    printER(di);
+    #undef printER
   }
   else if (strcmp(arg, "w") == 0) {
 
@@ -73,6 +73,25 @@ __cr cmd_info (char *args) {
   else {
     printf("Undefine Args. \n\t r: print registers\n\t w: print watchpoints\n");
   }
+  return 0;
+}
+
+__cr cmd_x (char *args) {
+  char *arg __tk;
+  if (arg == NULL) {
+    printf("Args are needed!\n");
+    return 0;
+  }
+  int n = atoi(arg);
+  arg __tk;
+  if (arg == NULL) {
+    printf("Args are needed!\n");
+    return 0;
+  }
+  bool success_flag;
+  // int result = expr(arg, &success_flag);
+  int result = atoi(arg);
+  paddr_read(result, n);
   return 0;
 }
 
@@ -90,7 +109,8 @@ static struct {
 
   /* TODO: Add more commands */
   { "si", "step n instructions", cmd_si },
-  { "info", "print info", cmd_info }
+  { "info", "print info", cmd_info },
+  { "x", "scan memory", cmd_x }
 
 };
 
