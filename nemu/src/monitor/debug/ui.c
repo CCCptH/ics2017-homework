@@ -93,7 +93,10 @@ __cr cmd_x (char *args) {
   int addr = atoi(arg);
   int i;
   for (i=0; i < n; i++)
-    printf("mem: %u\n", paddr_read(addr, 4));
+  {
+    printf("%u: %u\n", addr, paddr_read(addr, 4));
+    addr += 4;
+  }
   return 0;
 }
 
