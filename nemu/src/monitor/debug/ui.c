@@ -56,8 +56,16 @@ __cr cmd_info (char *args) {
     return 0;
   }
   if (strcmp(arg, "r") == 0)  {
-    #define rg(r) #r"\t\t%x\t\t%d\n"
-    printf(rg(eax), cpu.eax, cpu.eax);
+    #define printR(r) printf("e"#r"\t\t%x\t\t%d\n", cpu.e##r, cpu.e##r)
+    printR(ax);
+    printR(bx);
+    printR(cx);
+    printR(dx);
+    printR(sp);
+    printR(bp);
+    printR(si);
+    printR(di);
+    #undef printR
   }
   else if (strcmp(arg, "w") == 0) {
 
