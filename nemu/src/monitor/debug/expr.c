@@ -111,7 +111,7 @@ static bool make_token(char *e) {
           case TK_HEX:
             tokens[nr_token].type = rules[i].token_type;
             if (substr_len >31) {
-              printf('Number overflow\n');
+              printf("Number overflow\n");
               return false;
             }
             strcpy(tokens[nr_token].str, substr_start);
