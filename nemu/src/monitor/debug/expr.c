@@ -191,7 +191,6 @@ int eval(uint32_t p, uint32_t q) {
     }
     else if (tokens[p].type == TK_HEX) {
       uint32_t i = 2;
-      printf("str:%s\n", tokens[p].str);
       uint32_t result = 0;
       while (tokens[p].str[i] != '\0') {
         int base;
@@ -207,7 +206,6 @@ int eval(uint32_t p, uint32_t q) {
         result = result * 16 + base;
         ++i;
       }
-      printf("hex: %d\n", result);
       return result;
     }
     else {
@@ -226,7 +224,6 @@ int eval(uint32_t p, uint32_t q) {
     uint32_t dominant_op_index = get_dominant_op_index(p,q);
     int expr1 = eval(p, dominant_op_index - 1);
     int expr2 = eval(dominant_op_index + 1, q);
-    printf("expr1:%d\t\texpr2:%d\n", expr1, expr2);
     if (expr1 == BAD_EXPR || expr2 == BAD_EXPR) return BAD_EXPR;
     switch (tokens[dominant_op_index].type)
     {
