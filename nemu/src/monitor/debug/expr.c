@@ -179,6 +179,7 @@ int eval(uint32_t p, uint32_t q) {
       else if (cmp_reg(ebp)) return cpu.ebp;
       else if (cmp_reg(edi)) return cpu.edi;
       else return cpu.eip;
+      printf("reg:  %d\n", cpu.eax);
       #undef cmp_reg
     }
     else if (tokens[p].type == TK_NUM) {
