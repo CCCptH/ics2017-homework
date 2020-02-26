@@ -8,7 +8,7 @@
 
 #include<stdlib.h>
 
-#define BAD_EXPR UINT32_MAX
+#define BAD_EXPR INT32_MAX
 
 enum {
   TK_NOTYPE = 256, TK_EQ,
@@ -152,7 +152,13 @@ uint32_t expr(char *e, bool *success) {
   /* TODO: Insert codes to evaluate the expression. */
   // TODO();
 
-  return 0;
+  int result = eval(0, nr_token-1);
+  if (result == BAD_EXPR) {
+    success = false;
+    return 0;
+  }
+  success = true;
+  return result;
 }
 
 int eval(uint32_t p, uint32_t q) {
@@ -204,12 +210,14 @@ int eval(uint32_t p, uint32_t q) {
     return eval(p+1, q-1);
   }
   else if (check_parentheses(p, q) == -1) {
+    printf("Bad expression, parentheses unmatched!\n");
     return BAD_EXPR;
   }
   else {
     uint32_t dominant_op_index = get_dominant_op_index(p,q);
     int expr1 = eval(p, dominant_op_index - 1);
     int expr2 = eval(dominant_op_index + 1, q);
+    if (expr1 == BAD_EXPR || expr2 == BAD_EXPR) return BAD_EXPR;
     switch (tokens[dominant_op_index].type)
     {
     case '+':
