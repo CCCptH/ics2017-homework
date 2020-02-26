@@ -170,7 +170,6 @@ int eval(uint32_t p, uint32_t q) {
   else if (p == q) {
     if (tokens[p].type == TK_REG) {
       #define cmp_reg(r) (strcmp(tokens[p].str, "$"#r)==0)
-      printf("reg:  %d\n", cpu.eax);
       if(cmp_reg(eax)) return cpu.eax;
       else if (cmp_reg(ebx)) return cpu.ebx;
       else if (cmp_reg(ecx)) return cpu.ecx;
