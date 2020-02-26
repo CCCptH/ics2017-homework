@@ -94,7 +94,7 @@ __cr cmd_x (char *args) {
   int i;
   for (i=0; i < n; i++)
   {
-    printf("%x: %u\n", addr, vaddr_read(addr, 4));
+    printf("0x%08x: %u\n", addr, vaddr_read(addr, 4));
     addr += 4;
   }
   return 0;
