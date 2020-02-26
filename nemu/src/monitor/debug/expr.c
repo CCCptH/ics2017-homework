@@ -201,6 +201,7 @@ int eval(uint32_t p, uint32_t q) {
         result = result * 16 + base;
         ++i;
       }
+      printf("hex: %d\n", result);
       return result;
     }
     else {
