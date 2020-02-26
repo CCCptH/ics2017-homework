@@ -154,10 +154,10 @@ uint32_t expr(char *e, bool *success) {
 
   int result = eval(0, nr_token-1);
   if (result == BAD_EXPR) {
-    success = false;
+    *success = false;
     return 0;
   }
-  success = true;
+  *success = true;
   return result;
 }
 
