@@ -186,6 +186,7 @@ int eval(uint32_t p, uint32_t q) {
     }
     else if (tokens[p].type == TK_HEX) {
       uint32_t i = 2;
+      printf("str:%s\n", tokens[p].str);
       uint32_t result = 0;
       while (tokens[p].str[i] != '\0') {
         int base;
