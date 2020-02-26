@@ -38,7 +38,7 @@ static struct rule {
   {"\\(", '('},         // lb
   {"\\)", ')'},         // rb
   {"[0-9]+", TK_NUM},   // decnum
-  {"0[xX][0-9abcdef]+", TK_HEX},// hexnum
+  {"0[xX][0-9a-fA-F]+", TK_HEX},// hexnum
   {"\\$e(([abcd]x)|[sd]i|[bsi]p)", TK_REG}   // reg
 };
 
@@ -137,7 +137,7 @@ static bool make_token(char *e) {
   return true;
 }
 
-uint32_t eval(uint32_t, uint32_t);
+int eval(uint32_t, uint32_t);
 bool check_parentheses(uint32_t, uint32_t);
 bool is_operator(Token*);
 uint32_t get_dominant_op_index(uint32_t, uint32_t);
@@ -155,7 +155,7 @@ uint32_t expr(char *e, bool *success) {
   return 0;
 }
 
-uint32_t eval(uint32_t p, uint32_t q) {
+int eval(uint32_t p, uint32_t q) {
   if (p > q) {
     printf("Bad expression!\n");
     return BAD_EXPR;
@@ -182,11 +182,14 @@ uint32_t eval(uint32_t p, uint32_t q) {
       uint32_t result = 0;
       while (tokens[p].str[i] != '\0') {
         int base;
-        if (tokens[p].str[i] >= '0' && tokens[p].str[i] <='9') {
+        if (tokens[p].str[i] >= '0' && tokens[p].str[i] <= '9') {
           base = tokens[p].str[i] - '0';
         }
-        else {
+        else if (tokens[p].str[i] >='a' && tokens[p].str[i] <= 'f') {
           base = tokens[p].str[i] - 'a' + 10;
+        }
+        else {
+          base = tokens[p].str[i] - 'A';
         }
         result += result * 10 + base;
       }
@@ -222,6 +225,7 @@ uint32_t eval(uint32_t p, uint32_t q) {
     case TK_NEQ:
       return expr1 != expr2;
     default:
+      assert(0);
       return BAD_EXPR;
     }
   }
@@ -282,12 +286,12 @@ inline int get_priority(uint32_t op) {
   // low to high
   switch (op)
   {
+  case TK_OR:
+    return base_priority-0;
+  case TK_AND:
+    return base_priority-1;
   case TK_EQ:
   case TK_NEQ:
-    return base_priority-0;
-  case TK_OR:
-    return base_priority-1;
-  case TK_AND:
     return base_priority-2;
   case '+':
   case '-':
@@ -295,6 +299,8 @@ inline int get_priority(uint32_t op) {
   case '*':
   case '/':
     return base_priority-4;
+  case '!':
+    return base_priority-5;
   default:
     return -1;
   }
