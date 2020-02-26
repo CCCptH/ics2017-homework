@@ -37,8 +37,8 @@ static struct rule {
   {"\\/", '/'},         // div
   {"\\(", '('},         // lb
   {"\\)", ')'},         // rb
-  {"[0-9]+", TK_NUM},   // decnum
   {"0[xX][0-9a-fA-F]+", TK_HEX},// hexnum
+  {"[0-9]+", TK_NUM},   // decnum
   {"\\$e(([abcd]x)|[sd]i|[bsi]p)", TK_REG}   // reg
 };
 
