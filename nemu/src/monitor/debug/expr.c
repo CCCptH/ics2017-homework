@@ -6,6 +6,8 @@
 #include <sys/types.h>
 #include <regex.h>
 
+#define BAD_EXPR UINT32_MAX
+
 enum {
   TK_NOTYPE = 256, TK_EQ,
 
@@ -133,6 +135,8 @@ static bool make_token(char *e) {
   return true;
 }
 
+uint32_t eval(uint32_t, uint32_t);
+
 uint32_t expr(char *e, bool *success) {
   if (!make_token(e)) {
     *success = false;
@@ -140,7 +144,15 @@ uint32_t expr(char *e, bool *success) {
   }
 
   /* TODO: Insert codes to evaluate the expression. */
-  TODO();
+  // TODO();
 
+  return 0;
+}
+
+uint32_t eval(uint32_t p, uint32_t q) {
+  if (p > q) {
+    printf("Bad expression!\n");
+    return BAD_EXPR;
+  }
   return 0;
 }
