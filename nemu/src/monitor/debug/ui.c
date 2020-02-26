@@ -84,6 +84,7 @@ __cr cmd_x (char *args) {
   }
   int n = atoi(arg);
   arg __tk;
+  printf("args:  %s\n", args);
   if (arg == NULL) {
     printf("Args are needed!\n");
     return 0;
