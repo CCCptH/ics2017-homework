@@ -138,7 +138,7 @@ static bool make_token(char *e) {
 }
 
 int eval(uint32_t, uint32_t);
-bool check_parentheses(uint32_t, uint32_t);
+int8_t check_parentheses(uint32_t, uint32_t);
 bool is_operator(Token*);
 uint32_t get_dominant_op_index(uint32_t, uint32_t);
 int get_priority(uint32_t);
@@ -200,9 +200,13 @@ int eval(uint32_t p, uint32_t q) {
       return BAD_EXPR;
     }
   }
-  else if (check_parentheses(p, q)) {
+  else if (check_parentheses(p, q) == 1) {
     return eval(p+1, q-1);
-  } else {
+  }
+  else if (check_parentheses(p, q) == -1) {
+    return BAD_EXPR;
+  }
+  else {
     uint32_t dominant_op_index = get_dominant_op_index(p,q);
     int expr1 = eval(p, dominant_op_index - 1);
     int expr2 = eval(dominant_op_index + 1, q);
@@ -231,15 +235,18 @@ int eval(uint32_t p, uint32_t q) {
   }
 }
 
-bool check_parentheses(uint32_t p, uint32_t q) {
+int8_t check_parentheses(uint32_t p, uint32_t q) {
   uint32_t i;
   uint8_t stack = 0;
+  int8_t flag = 1;
   for(i = p; i <= q; i++) {
     if (tokens[i].type == '(') ++stack;
     else if (tokens[i].type == ')') -- stack;
-    if (stack == 0 && i < q) return false;
+    if (stack == 0 && i < q) flag = 0;  // 整个表达式没被括号包裹
+    if (stack < 0) flag = -1;           // 右括号多了， 表达式不对
   }
-  return true;
+  if (stack > 0) flag = -1;             // 左括号多了
+  return flag;
 }
 
 inline bool is_operator(Token *token) {
