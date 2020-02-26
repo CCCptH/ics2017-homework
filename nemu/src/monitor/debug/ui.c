@@ -84,7 +84,6 @@ __cr cmd_x (char *args) {
   }
   int n = atoi(arg);
   arg __tk;
-  printf("args:  %s\n", args);
   if (arg == NULL) {
     printf("Args are needed!\n");
     return 0;
@@ -93,7 +92,8 @@ __cr cmd_x (char *args) {
   // int result = expr(arg, &success_flag);
   int addr = expr(arg, &success_flag);
   if (!success_flag) {
-    printf("\033[0;31m""Bad Expression!\n""\033[0m");
+    Log("\033[0;31m""Bad Expression!\n""\033[0m");
+    return 0;
   }
   int i;
   for (i=0; i < n; i++)
@@ -101,6 +101,15 @@ __cr cmd_x (char *args) {
     printf("0x%08x: %u\n", addr, vaddr_read(addr, 4));
     addr += 4;
   }
+  return 0;
+}
+
+__cr cmd_p (char *args) {
+  char *arg __tk;
+  bool success_flag;
+  int result = expr(arg, success_flag);
+  if (success_flag) printf("expr: %d", result);
+  else Log("\033[0;31m""Bad Expression!\n""\033[0m");
   return 0;
 }
 
@@ -119,7 +128,8 @@ static struct {
   /* TODO: Add more commands */
   { "si", "step n instructions", cmd_si },
   { "info", "print info", cmd_info },
-  { "x", "scan memory", cmd_x }
+  { "x", "scan memory", cmd_x },
+  { "p", "figure out expr", cmd_p }
 
 };
 
