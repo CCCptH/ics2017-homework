@@ -90,7 +90,10 @@ __cr cmd_x (char *args) {
   }
   bool success_flag;
   // int result = expr(arg, &success_flag);
-  int addr = atoi(arg);
+  int addr = expr(arg, &success_flag);
+  if (!success_flag) {
+    printf("\033[0;31m""Bad Expression!\n""\033[0m");
+  }
   int i;
   for (i=0; i < n; i++)
   {
