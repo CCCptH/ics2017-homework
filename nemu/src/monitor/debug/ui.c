@@ -83,13 +83,14 @@ __cr cmd_x (char *args) {
     return 0;
   }
   int n = atoi(arg);
+  arg __tk;
   if (arg == NULL) {
     printf("Args are needed!\n");
     return 0;
   }
   bool success_flag;
   // int result = expr(arg, &success_flag);
-  int addr = expr(args, &success_flag);
+  int addr = expr(arg, &success_flag);
   if (!success_flag) {
     printf("\033[0;31m""Bad Expression!\n""\033[0m");
   }
