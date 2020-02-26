@@ -26,12 +26,12 @@ static struct rule {
   {"\\+", '+'},         // plus
   {"==", TK_EQ},        // equal
   {"!=", TK_NEQ},       // not equal
-  {"&&", TK_AND},
-  {"\\|\\|", TK_OR},
+  {"&&", TK_AND},       // l_and
+  {"\\|\\|", TK_OR},    // l_or
   {"-", '-'},           // minus
   {"\\*", '*'},         // mul
   {"\\/", '/'},         // div
-  {"\\(", '('},         // lb
+  {"(", '('},         // lb
   {"\\)", ')'},         // rb
   {"[0-9]+", TK_NUM},   // decnum
   {"0[xX][0-9abcdef]+", TK_HEX},// hexnum
