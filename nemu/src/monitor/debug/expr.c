@@ -31,7 +31,7 @@ static struct rule {
   {"-", '-'},           // minus
   {"\\*", '*'},         // mul
   {"\\/", '/'},         // div
-  {"(", '('},         // lb
+  {"\\(", '('},         // lb
   {"\\)", ')'},         // rb
   {"[0-9]+", TK_NUM},   // decnum
   {"0[xX][0-9abcdef]+", TK_HEX},// hexnum
