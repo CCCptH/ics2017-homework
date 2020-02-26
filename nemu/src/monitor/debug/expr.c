@@ -6,6 +6,8 @@
 #include <sys/types.h>
 #include <regex.h>
 
+#include<stdlib.h>
+
 #define BAD_EXPR UINT32_MAX
 
 enum {
@@ -136,6 +138,10 @@ static bool make_token(char *e) {
 }
 
 uint32_t eval(uint32_t, uint32_t);
+bool check_parentheses(uint32_t, uint32_t);
+bool is_operator(Token*);
+uint32_t get_dominant_op_index(uint32_t, uint32_t);
+int get_priority(uint32_t);
 
 uint32_t expr(char *e, bool *success) {
   if (!make_token(e)) {
@@ -154,5 +160,119 @@ uint32_t eval(uint32_t p, uint32_t q) {
     printf("Bad expression!\n");
     return BAD_EXPR;
   }
-  return 0;
+  else if (p == q) {
+    if (tokens[p].type == TK_REG) {
+      #define cmp_reg(r) (strcmp(tokens[p].str, "$"#r)==0)
+      if(cmp_reg(eax)) return cpu.eax;
+      else if (cmp_reg(ebx)) return cpu.ebx;
+      else if (cmp_reg(ecx)) return cpu.ecx;
+      else if (cmp_reg(edx)) return cpu.edx;
+      else if (cmp_reg(esi)) return cpu.esi;
+      else if (cmp_reg(esp)) return cpu.esp;
+      else if (cmp_reg(ebp)) return cpu.ebp;
+      else if (cmp_reg(edi)) return cpu.edi;
+      else return cpu.eip;
+      #undef cmp_reg
+    }
+    else if (tokens[p].type == TK_NUM) {
+      return atoi(tokens[p].str);
+    }
+    else if (tokens[p].type == TK_HEX) {
+      uint32_t i = 2;
+      uint32_t result = 0;
+      while (tokens[p].str[i] != '\0') {
+        int base;
+        if (tokens[p].str[i] >= '0' && tokens[p].str[i] <='9') {
+          base = tokens[p].str[i] - '0';
+        }
+        else {
+          base = tokens[p].str[i] - 'a' + 10;
+        }
+        result += result * 10 + base;
+      }
+      return result;
+    }
+    else {
+      printf("Unknown token\n");
+      return BAD_EXPR;
+    }
+  }
+  else if (check_parentheses(p, q)) {
+    return eval(p+1, q-1);
+  } else {
+    uint32_t dominant_op_index = get_dominant_op_index(p,q);
+  }
+}
+
+bool check_parentheses(uint32_t p, uint32_t q) {
+  uint32_t i;
+  uint8_t stack = 0;
+  for(i = p; i <= q; i++) {
+    if (tokens[i].type == '(') ++stack;
+    else if (tokens[i].type == ')') -- stack;
+    if (stack == 0 && i < q) return false;
+  }
+  return true;
+}
+
+inline bool is_operator(Token *token) {
+  switch (token->type)
+  {
+  case TK_EQ:
+  case TK_NEQ:
+  case TK_OR:
+  case TK_AND:
+  case '+':
+  case '-':
+  case '*':
+  case '/':
+    return true;
+  default:
+    return false;
+  }
+}
+
+uint32_t get_dominant_op_index(uint32_t p, uint32_t q) {
+  int i;
+  uint32_t parentheses_flag = 0;
+  uint32_t dominant = 0;
+  uint32_t dominant_index = p;
+  for (i = p; i <= q; i++) {
+    if (!is_operator(&tokens[i])) continue;
+    else if (parentheses_flag > 0) continue;
+    else {
+      if (tokens[i].type == '(') ++parentheses_flag;
+      else if (tokens[i].type == ')') --parentheses_flag;
+      else {
+        if (get_priority(tokens[i].type) >= get_priority(dominant)) {
+          dominant = tokens[i].type;
+          dominant_index = i;
+        }
+      }
+    }
+  }
+  return dominant_index;
+}
+
+inline int get_priority(uint32_t op) {
+  int base_priority = 100;
+  // low to high
+  switch (op)
+  {
+  case TK_EQ:
+  case TK_NEQ:
+    return base_priority-0;
+  case TK_OR:
+    return base_priority-1;
+  case TK_AND:
+    return base_priority-2;
+  case '+':
+  case '-':
+    return base_priority-3;
+  case '*':
+  case '/':
+    return base_priority-4;
+  default:
+    return -1;
+  }
 }
