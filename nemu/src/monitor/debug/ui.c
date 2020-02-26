@@ -108,7 +108,7 @@ __cr cmd_p (char *args) {
   char *arg __tk;
   bool success_flag;
   int result = expr(arg, &success_flag);
-  if (success_flag) printf("expr: %d", result);
+  if (success_flag) printf("expr: %d\n", result);
   else Log("\033[0;31m""Bad Expression!\n""\033[0m");
   return 0;
 }
