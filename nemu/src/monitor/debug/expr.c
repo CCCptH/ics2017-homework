@@ -89,9 +89,35 @@ static bool make_token(char *e) {
          * to record the token in the array `tokens'. For certain types
          * of tokens, some extra actions should be performed.
          */
-
         switch (rules[i].token_type) {
-          default: TODO();
+          case TK_NOTYPE:
+            break;
+          case '+':
+          case '-':
+          case '*':
+          case '/':
+          case TK_OR:
+          case TK_AND:
+          case TK_EQ:
+          case TK_NEQ:
+          case '(':
+          case ')':
+            tokens[nr_token].str[0]='\0';
+            tokens[nr_token].type = rules[i].token_type;
+            ++nr_token;
+            break;
+          case TK_NUM:
+          case TK_REG:
+          case TK_HEX:
+            tokens[nr_token].type = rules[i].token_type;
+            if (substr_len >31) {
+              printf('Number overflow\n');
+              return false;
+            }
+            strcpy(tokens[nr_token].str, substr_start);
+            ++nr_token;
+          default: 
+            break;
         }
 
         break;
