@@ -113,13 +113,18 @@ static bool make_token(char *e) {
           case TK_NUM:
           case TK_REG:
           case TK_HEX:
+          {
             tokens[nr_token].type = rules[i].token_type;
             if (substr_len >31) {
               printf("Number overflow\n");
               return false;
             }
-            strcpy(tokens[nr_token].str, substr_start);
+            int i;
+            for (i = 0; i < substr_len; i++) 
+              tokens[nr_token].str[i] = substr_start[i];
             ++nr_token;
+            break;
+          }
           default: 
             break;
         }
