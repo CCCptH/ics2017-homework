@@ -83,3 +83,20 @@ void display_wp() {
     iterator->value, iterator->expr);
   }
 }
+
+// if changed, return 1
+bool update_wp () {
+  WP* iterator;
+  bool flag = false;
+  for(iterator = head; iterator != NULL; iterator = iterator->next) {
+    bool success_flag;
+    int new_val = expr(iterator->expr, &success_flag);
+    if (new_val != iterator->value) {
+      printf("watchpoint %u has changed! previous value is %d, current value is %d, expr is %s\n",
+      iterator->NO, iterator->value, new_val, iterator->expr);
+      flag = true;
+      iterator->value = new_val;
+    }
+    return flag;
+  }
+}
