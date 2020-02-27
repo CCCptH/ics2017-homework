@@ -306,6 +306,7 @@ inline bool is_operator(Token *token) {
   case TK_NEQ:
   case TK_OR:
   case TK_AND:
+  case '!':
   case '+':
   case '-':
   case '*':
