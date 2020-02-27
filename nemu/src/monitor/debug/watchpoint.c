@@ -92,7 +92,7 @@ bool update_wp () {
     bool success_flag;
     int new_val = expr(iterator->expr, &success_flag);
     if (new_val != iterator->value) {
-      printf("watchpoint %u has changed!\nprev\t\t\tcurr\t\t\texpr\n%u\t%08x\t%u\t%08x\t%s",
+      printf("watchpoint %u has changed!\nprev\t\t\tcurr\t\t\texpr\n%u\t%08x\t%u\t%08x\t%s\n",
       iterator->NO, iterator->value, iterator->value, new_val, new_val, iterator->expr);
       flag = true;
       iterator->value = new_val;
