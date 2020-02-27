@@ -65,6 +65,7 @@ __cr cmd_info (char *args) {
     printER(bp);
     printER(si);
     printER(di);
+    printER(ip);
     #undef printER
   }
   else if (strcmp(arg, "w") == 0) {
