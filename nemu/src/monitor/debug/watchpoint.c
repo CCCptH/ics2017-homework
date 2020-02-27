@@ -63,6 +63,17 @@ void free_wp(WP *wp) {
   
 }
 
+void free_wp_by_no(uint32_t no) {
+  WP* iterator;
+  for (iterator = free_; iterator != NULL; iterator = iterator->next) {
+    if (iterator->NO == no) {
+      free_wp(iterator);
+      printf("watchpoint %u is deleted!\n", no);
+      break;
+    }
+  }
+}
+
 void display_wp() {
   WP* iterator;
   printf("No\tHex\t\tDec\t\tExpr\n");

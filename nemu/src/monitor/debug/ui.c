@@ -121,12 +121,12 @@ __cr cmd_w (char *args) {
   int value = expr(args, &success_flag);
   if (!success_flag) {
     Log("\033[0;31m""Bad Expression!\n""\033[0m");
-    return -1;
+    return 0;
   }
   WP* watch_point = new_wp();
   if (watch_point == NULL) {
     Log("\033[0;31m""No watchpoint available!\n""\033[0m");
-    return -1;
+    return 0;
   }
   int i;
   for (i = 0;i < MAX_EXPR_LEN; i++) {
@@ -135,6 +135,10 @@ __cr cmd_w (char *args) {
   }
   watch_point->value = value;
   printf("new watchpoint %u: %s\n", watch_point->NO, watch_point->expr);
+  return 0;
+}
+
+__cr cmd_d (char *args)  {
   return 0;
 }
 
