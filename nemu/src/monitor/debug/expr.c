@@ -166,6 +166,7 @@ uint32_t expr(char *e, bool *success) {
     if (tokens[i].type == '*'
     && (i == 0 || is_operator(&tokens[i - 1]))) {
       tokens[i].type = TK_DEREF;
+      printf("Deref\n");
     }
     else if (tokens[i].type == '-'
     && (i == 0 || is_operator(&tokens[i - 1]))) {
