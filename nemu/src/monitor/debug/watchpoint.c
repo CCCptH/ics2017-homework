@@ -65,7 +65,7 @@ void free_wp(WP *wp) {
 
 void free_wp_by_no(uint32_t no) {
   WP* iterator;
-  for (iterator = free_; iterator != NULL; iterator = iterator->next) {
+  for (iterator = head; iterator != NULL; iterator = iterator->next) {
     if (iterator->NO == no) {
       free_wp(iterator);
       printf("watchpoint %u is deleted!\n", no);
