@@ -69,7 +69,7 @@ __cr cmd_info (char *args) {
     #undef printER
   }
   else if (strcmp(arg, "w") == 0) {
-
+    display_wp();
   }
   else {
     printf("Undefine Args. \n\t r: print registers\n\t w: print watchpoints\n");
