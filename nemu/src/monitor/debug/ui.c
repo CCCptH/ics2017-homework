@@ -159,7 +159,8 @@ static struct {
   { "info", "print info", cmd_info },
   { "x", "scan memory", cmd_x },
   { "p", "figure out expr", cmd_p },
-  { "w", "watchpoint", cmd_w }
+  { "w", "watchpoint", cmd_w },
+  { "d", "delete watchpoint", cmd_d }
 
 };
 
