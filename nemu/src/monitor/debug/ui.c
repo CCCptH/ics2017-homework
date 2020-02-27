@@ -128,13 +128,13 @@ __cr cmd_w (char *args) {
     Log("\033[0;31m""No watchpoint available!\n""\033[0m");
     return -1;
   }
-  printf("new watchpoint %u: %s\n", watch_point->NO, watch_point->expr);
   int i;
   for (i = 0;i < MAX_EXPR_LEN; i++) {
     watch_point->expr[i] = arg[i];
     if (arg[i] == '\0') break;
   }
   watch_point->value = value;
+  printf("new watchpoint %u: %s\n", watch_point->NO, watch_point->expr);
   return 0;
 }
 
