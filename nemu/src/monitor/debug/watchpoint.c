@@ -65,9 +65,9 @@ void free_wp(WP *wp) {
 
 void display_wp() {
   WP* iterator;
-  printf("No\t\tHex\t\tDec\t\tExpr\n");
+  printf("No\tHex\t\tDec\t\tExpr\n");
   for(iterator = head; iterator != NULL; iterator = iterator->next) {
-    printf("%u\t\t0x%08x\t%u\t\t%s\n",
+    printf("%u\t0x%08x\t%u\t\t%s\n",
     iterator->NO, iterator->value,
     iterator->value, iterator->expr);
   }
