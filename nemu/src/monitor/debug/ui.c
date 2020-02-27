@@ -118,7 +118,7 @@ __cr cmd_p (char *args) {
 __cr cmd_w (char *args) {
   char *arg __tk;
   bool success_flag = true;
-  int value = expr(args, success_flag);
+  int value = expr(args, &success_flag);
   if (!success_flag) {
     Log("\033[0;31m""Bad Expression!\n""\033[0m");
     return -1;
