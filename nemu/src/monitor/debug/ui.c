@@ -99,7 +99,8 @@ __cr cmd_x (char *args) {
   int i;
   for (i=0; i < n; i++)
   {
-    printf("0x%08x: %u\n", addr, vaddr_read(addr, 4));
+    int value = vaddr_read(addr, 4);
+    printf("0x%08x: 0x%08x\t%u\n", addr, value, value);
     addr += 4;
   }
   return 0;
