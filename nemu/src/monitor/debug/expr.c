@@ -14,7 +14,8 @@ enum {
   TK_NOTYPE = 256, TK_EQ,
 
   /* TODO: Add more token types */
-  TK_NUM, TK_NEQ, TK_HEX, TK_REG, TK_AND, TK_OR
+  TK_NUM, TK_NEQ, TK_HEX, TK_REG, TK_AND, TK_OR,
+  TK_DEREF, TK_NEG
 };
 
 static struct rule {
@@ -157,6 +158,19 @@ uint32_t expr(char *e, bool *success) {
   /* TODO: Insert codes to evaluate the expression. */
   // TODO();
 
+  // neg and deref
+  int i;
+  for (i = 0; i < nr_token; i++) {
+    if (tokens[i].type == '*'
+    && (i == 0 || is_operator(&tokens[i - 1]))) {
+      tokens[i].type = TK_DEREF;
+    }
+    else if (tokens[i].type == '-'
+    && (i == 0 || is_operator(&tokens[i - 1]))) {
+      tokens[i].type = TK_NEG;
+    }
+  }
+
   int result = eval(0, nr_token-1);
   if (result == BAD_EXPR) {
     *success = false;
@@ -222,30 +236,44 @@ int eval(uint32_t p, uint32_t q) {
   }
   else {
     uint32_t dominant_op_index = get_dominant_op_index(p,q);
-    int expr1 = eval(p, dominant_op_index - 1);
-    int expr2 = eval(dominant_op_index + 1, q);
-    if (expr1 == BAD_EXPR || expr2 == BAD_EXPR) return BAD_EXPR;
-    switch (tokens[dominant_op_index].type)
-    {
-    case '+':
-      return expr1 + expr2;
-    case '-':
-      return expr1 - expr2;
-    case '*':
-      return expr1 * expr2;
-    case '/':
-      return expr1 / expr2;
-    case TK_OR:
-      return expr1 || expr2;
-    case TK_AND:
-      return expr1 && expr2;
-    case TK_EQ:
-      return expr1 == expr2;
-    case TK_NEQ:
-      return expr1 != expr2;
-    default:
-      assert(0);
-      return BAD_EXPR;
+    // 二元运算符
+    if (dominant_op_index != p) {
+      int expr1 = eval(p, dominant_op_index - 1);
+      int expr2 = eval(dominant_op_index + 1, q);
+      if (expr1 == BAD_EXPR || expr2 == BAD_EXPR) return BAD_EXPR;
+      switch (tokens[dominant_op_index].type) {
+      case '+':
+        return expr1 + expr2;
+      case '-':
+        return expr1 - expr2;
+      case '*':
+        return expr1 * expr2;
+      case '/':
+        return expr1 / expr2;
+      case TK_OR:
+        return expr1 || expr2;
+      case TK_AND:
+        return expr1 && expr2;
+      case TK_EQ:
+        return expr1 == expr2;
+      case TK_NEQ:
+        return expr1 != expr2;
+      default:
+        assert(0);
+        return BAD_EXPR;
+      }
+    }
+    // 一元运算符
+    else {
+      int expr = eval(p + 1, q);
+      switch (tokens[dominant_op_index].type) {
+      case TK_NEG:
+        return -expr;
+      case '!':
+        return !expr;
+      case TK_DEREF:
+        return vaddr_read(expr, 4);
+      }
     }
   }
 }
@@ -304,7 +332,7 @@ uint32_t get_dominant_op_index(uint32_t p, uint32_t q) {
 }
 
 inline int get_priority(uint32_t op) {
-  int base_priority = 100;
+  const int base_priority = 100;
   // low to high
   switch (op)
   {
@@ -321,6 +349,8 @@ inline int get_priority(uint32_t op) {
   case '*':
   case '/':
     return base_priority-4;
+  case TK_NEG:
+  case TK_DEREF:
   case '!':
     return base_priority-5;
   default:
