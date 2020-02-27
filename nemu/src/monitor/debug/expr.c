@@ -273,6 +273,9 @@ int eval(uint32_t p, uint32_t q) {
         return !expr;
       case TK_DEREF:
         return vaddr_read(expr, 4);
+      default:
+        assert(0);
+        return BAD_EXPR;
       }
     }
   }
