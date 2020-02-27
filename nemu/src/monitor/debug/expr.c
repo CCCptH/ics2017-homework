@@ -31,6 +31,7 @@ static struct rule {
   {"\\+", '+'},         // plus
   {"==", TK_EQ},        // equal
   {"!=", TK_NEQ},       // not equal
+  {"!", '!'},           // not
   {"&&", TK_AND},       // l_and
   {"\\|\\|", TK_OR},    // l_or
   {"-", '-'},           // minus
@@ -101,6 +102,7 @@ static bool make_token(char *e) {
           case '-':
           case '*':
           case '/':
+          case '!':
           case TK_OR:
           case TK_AND:
           case TK_EQ:
