@@ -171,6 +171,7 @@ uint32_t expr(char *e, bool *success) {
     else if (tokens[i].type == '-'
     && (i == 0 || is_operator(&tokens[i - 1]))) {
       tokens[i].type = TK_NEG;
+      printf("NEGATIVE\n");
     }
   }
 
