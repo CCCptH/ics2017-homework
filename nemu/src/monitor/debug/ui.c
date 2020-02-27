@@ -115,6 +115,28 @@ __cr cmd_p (char *args) {
   return 0;
 }
 
+__cr cmd_w (char *args) {
+  char *arg __tk;
+  bool success_flag = true;
+  int value = expr(args, success_flag);
+  if (!success_flag) {
+    Log("\033[0;31m""Bad Expression!\n""\033[0m");
+    return -1;
+  }
+  WP* watch_point = new_wp();
+  if (watch_point == NULL) {
+    Log("\033[0;31m""No watchpoint available!\n""\033[0m");
+    return -1;
+  }
+  int i;
+  for (i = 0;i < MAX_EXPR_LEN; i++) {
+    watch_point->expr[i] = arg[i];
+    if (arg[i] == '\0') break;
+  }
+  watch_point->value = value;
+  return 0;
+}
+
 #undef __cr
 #undef __tk
 
