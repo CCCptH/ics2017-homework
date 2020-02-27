@@ -166,12 +166,10 @@ uint32_t expr(char *e, bool *success) {
     if (tokens[i].type == '*'
     && (i == 0 || is_operator(&tokens[i - 1]))) {
       tokens[i].type = TK_DEREF;
-      printf("Deref\n");
     }
     else if (tokens[i].type == '-'
     && (i == 0 || is_operator(&tokens[i - 1]))) {
       tokens[i].type = TK_NEG;
-      printf("NEGATIVE\n");
     }
   }
 
@@ -274,7 +272,6 @@ int eval(uint32_t p, uint32_t q) {
       case TK_NEG:
         return -expr;
       case '!':
-        printf("!!!!!!!!!\n");
         return !expr;
       case TK_DEREF:
         return vaddr_read(expr, 4);

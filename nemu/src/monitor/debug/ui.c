@@ -56,7 +56,7 @@ __cr cmd_info (char *args) {
     return 0;
   }
   if (strcmp(arg, "r") == 0)  {
-    #define printER(r) printf(#r"\t\t%x\t\t%u\n", cpu.e##r, cpu.e##r)
+    #define printER(r) printf("e"#r"\t\t%08x\t\t%08u\n", cpu.e##r, cpu.e##r)
     printER(ax);
     printER(bx);
     printER(cx);
