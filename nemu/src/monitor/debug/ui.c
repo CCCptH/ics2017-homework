@@ -139,7 +139,7 @@ __cr cmd_w (char *args) {
 }
 
 __cr cmd_d (char *args)  {
-  char arg __tk;
+  char *arg __tk;
   free_wp_by_no(atoi(arg));
   return 0;
 }
