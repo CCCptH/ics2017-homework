@@ -97,6 +97,6 @@ bool update_wp () {
       flag = true;
       iterator->value = new_val;
     }
-    return flag;
   }
+  return flag;
 }
