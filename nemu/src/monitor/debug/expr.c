@@ -274,6 +274,7 @@ int eval(uint32_t p, uint32_t q) {
       case TK_NEG:
         return -expr;
       case '!':
+        printf("!!!!!!!!!\n");
         return !expr;
       case TK_DEREF:
         return vaddr_read(expr, 4);
