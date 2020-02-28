@@ -222,7 +222,7 @@ int eval(uint32_t p, uint32_t q) {
         }
         else {
           base = tokens[p].str[i] - 'A' + 10;
-          printf("???\n");
+          printf("%s???\n", tokens[p].str);
         }
         result = result * 16 + base;
         ++i;
