@@ -114,6 +114,9 @@ __cr cmd_x (char *args) {
 
 __cr cmd_p (char *args) {
   char *arg __tk;
+  if (arg == NULL) {
+    Log("Need a expr!");
+  }
   bool success_flag;
   int result = expr(arg, &success_flag);
   if (success_flag) printf("expr: %d\n", result);
