@@ -123,8 +123,10 @@ static bool make_token(char *e) {
               return false;
             }
             int i;
-            for (i = 0; i < substr_len; i++) 
-              tokens[nr_token].str[i] = substr_start[i];
+            for (i = 0; i < 32; i++) {
+              if (i<substr_len) tokens[nr_token].str[i] = substr_start[i];
+              else tokens[nr_token].str[i] = '\0';
+            }
             ++nr_token;
             break;
           }
@@ -222,7 +224,6 @@ int eval(uint32_t p, uint32_t q) {
         }
         else {
           base = tokens[p].str[i] - 'A' + 10;
-          printf("%s???\n", tokens[p].str);
         }
         result = result * 16 + base;
         ++i;
