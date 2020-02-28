@@ -164,11 +164,11 @@ uint32_t expr(char *e, bool *success) {
   int i;
   for (i = 0; i < nr_token; i++) {
     if (tokens[i].type == '*'
-    && (i == 0 || is_operator(&tokens[i - 1]))) {
+    && (i == 0 || is_operator(&tokens[i - 1]) || tokens[i - 1].type == '(')) {
       tokens[i].type = TK_DEREF;
     }
     else if (tokens[i].type == '-'
-    && (i == 0 || is_operator(&tokens[i - 1]))) {
+    && (i == 0 || is_operator(&tokens[i - 1]) || tokens[i - 1].type == '(')) {
       tokens[i].type = TK_NEG;
     }
   }
