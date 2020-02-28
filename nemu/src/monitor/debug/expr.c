@@ -199,7 +199,11 @@ int eval(uint32_t p, uint32_t q) {
       else if (cmp_reg(esp)) return cpu.esp;
       else if (cmp_reg(ebp)) return cpu.ebp;
       else if (cmp_reg(edi)) return cpu.edi;
-      else return cpu.eip;
+      else if (cmp_reg(eip)) return cpu.eip;
+      else {
+        printf("unknown reg\n");
+        return BAD_EXPR;
+      }
       #undef cmp_reg
     }
     else if (tokens[p].type == TK_NUM) {
