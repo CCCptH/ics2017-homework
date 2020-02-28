@@ -96,12 +96,17 @@ __cr cmd_x (char *args) {
     Log("\033[0;31m""Bad Expression!\n""\033[0m");
     return 0;
   }
+  printf("Memory:\n");
   int i;
   for (i=0; i < n; i++)
   {
-    int value = vaddr_read(addr, 4);
-    printf("0x%08x: 0x%08x\t%u\n", addr, value, value);
-    addr += 4;
+    int value = vaddr_read(addr+i, 1);
+    if (i%4 == 0) {
+      printf("\n0x08%x:  0x%02x", addr+i, value);
+    }
+    else {
+      printf("  0x%02x", value);
+    }
   }
   return 0;
 }
