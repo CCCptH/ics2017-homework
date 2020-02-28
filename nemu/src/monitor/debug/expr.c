@@ -217,7 +217,7 @@ int eval(uint32_t p, uint32_t q) {
           base = tokens[p].str[i] - 'a' + 10;
         }
         else {
-          base = tokens[p].str[i] - 'A';
+          base = tokens[p].str[i] - 'A' + 10;
         }
         result = result * 16 + base;
         ++i;
