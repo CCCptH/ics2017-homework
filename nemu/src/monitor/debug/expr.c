@@ -300,7 +300,7 @@ int eval(uint32_t p, uint32_t q) {
 
 int8_t check_parentheses(uint32_t p, uint32_t q) {
   uint32_t i;
-  uint8_t stack = 0;
+  int8_t stack = 0;
   int8_t flag = 1;
   for(i = p; i <= q; i++) {
     if (tokens[i].type == '(') ++stack;
