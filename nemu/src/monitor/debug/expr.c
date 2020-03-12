@@ -324,6 +324,7 @@ int8_t check_parentheses(uint32_t p, uint32_t q) {
     flag = -1;
     printf("unmatched parenthese (\n");
   }             // 左括号多了
+  printf("parenthese flag is %d\n", flag);
   return flag;
 }
 
