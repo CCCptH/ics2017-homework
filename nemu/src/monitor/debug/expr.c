@@ -312,7 +312,6 @@ int8_t check_parentheses(uint32_t p, uint32_t q) {
       break;
     }
   }
-  printf("\n");
   if (stack > 0) {
     flag = -1;
     printf("unmatched parenthese (\n");
@@ -355,6 +354,7 @@ uint32_t get_dominant_op_index(uint32_t p, uint32_t q) {
         if (get_priority(tokens[i].type) >= get_priority(dominant)) {
           dominant = tokens[i].type;
           dominant_index = i;
+          printf("dominant op index is: %d\n", dominant_index);
         }
       }
     }
