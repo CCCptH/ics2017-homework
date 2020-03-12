@@ -345,7 +345,7 @@ inline bool is_operator(Token *token) {
 
 uint32_t get_dominant_op_index(uint32_t p, uint32_t q) {
   int i;
-  uint32_t parentheses_flag = 0;
+  int32_t parentheses_flag = 0;
   uint32_t dominant = 0;
   uint32_t dominant_index = p;
   for (i = p; i <= q; i++) {
