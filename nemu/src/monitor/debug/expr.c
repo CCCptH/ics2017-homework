@@ -326,7 +326,7 @@ int8_t check_parentheses(uint32_t p, uint32_t q) {
   return flag;
 }
 
-inline bool is_operator(Token *token) {
+bool is_operator(Token *token) {
   switch (token->type)
   {
   case TK_EQ:
@@ -352,20 +352,12 @@ uint32_t get_dominant_op_index(uint32_t p, uint32_t q) {
   uint32_t dominant = 0;
   uint32_t dominant_index = p;
   for (i = p; i <= q; i++) {
-    printf("token type is %d\n", tokens[i].type);
+    int type = tokens[i].type;
     if (!is_operator(&tokens[i])) continue;
     else if (parentheses_flag != 0) continue;
     else {
-      if (tokens[i].type == '(') {
-        ++parentheses_flag;
-        printf("token type is %d\n", tokens[i].type);
-        continue;
-      }
-      else if (tokens[i].type == ')') {
-        printf("token type is %d\n", tokens[i].type);
-        --parentheses_flag;
-        continue;
-      }
+      if (tokens[i].type == '(') ++parentheses_flag;
+      else if (tokens[i].type == ')') --parentheses_flag;
       else {
         if (get_priority(tokens[i].type) >= get_priority(dominant)) {
           dominant = tokens[i].type;
