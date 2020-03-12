@@ -356,8 +356,8 @@ uint32_t get_dominant_op_index(uint32_t p, uint32_t q) {
     if (!is_operator(&tokens[i])) continue;
     else if (parentheses_flag != 0) continue;
     else {
-      if (tokens[i].type == '(') ++parentheses_flag;
-      else if (tokens[i].type == ')') --parentheses_flag;
+      if (type == '(') ++parentheses_flag;
+      else if (type == ')') --parentheses_flag;
       else {
         if (get_priority(tokens[i].type) >= get_priority(dominant)) {
           dominant = tokens[i].type;
