@@ -308,6 +308,7 @@ int8_t check_parentheses(uint32_t p, uint32_t q) {
     if (stack == 0 && i < q) flag = 0;  // 整个表达式没被括号包裹
     if (stack < 0) {
       flag = -1;           // 右括号多了， 表达式不对
+      printf("overflow\n");
       break;
     }
   }
