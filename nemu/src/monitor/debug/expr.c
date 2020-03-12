@@ -347,11 +347,11 @@ inline bool is_operator(Token *token) {
 }
 
 uint32_t get_dominant_op_index(uint32_t p, uint32_t q) {
-  int i;
+  // int i;
   int32_t parentheses_flag = 0;
   uint32_t dominant = 0;
   uint32_t dominant_index = p;
-  for (i = p; i <= q; i++) {
+  for (int i = p; i <= q; i++) {
     if (tokens[i].type == '(') ++parentheses_flag;
     else if (tokens[i].type == ')') --parentheses_flag;
     if (!is_operator(&tokens[i])) continue;
