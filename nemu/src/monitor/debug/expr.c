@@ -253,6 +253,7 @@ int eval(uint32_t p, uint32_t q) {
   else {
     uint32_t dominant_op_index = get_dominant_op_index(p,q);
     // 二元运算符
+    printf("%d\n", dominant_op_index == p);
     if (dominant_op_index != p) {
       int expr1 = eval(p, dominant_op_index - 1);
       int expr2 = eval(dominant_op_index + 1, q);
@@ -354,7 +355,6 @@ uint32_t get_dominant_op_index(uint32_t p, uint32_t q) {
         if (get_priority(tokens[i].type) >= get_priority(dominant)) {
           dominant = tokens[i].type;
           dominant_index = i;
-          printf("dominant op index is: %d\n", dominant_index);
         }
       }
     }
