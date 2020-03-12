@@ -117,14 +117,15 @@ static bool make_token(char *e) {
           case TK_NEQ:
           case '(':
           case ')':
-            {
-              int i;
-              for(i = 0; i <  32; i++)
-                tokens[nr_token].str[i] = '\0';
-            }
+          {
+            int i;
+            for(i = 0; i <  32; i++)
+              tokens[nr_token].str[i] = '\0';
+            
             tokens[nr_token].type = rules[i].token_type;
             ++nr_token;
             break;
+          }
           case TK_NUM:
           case TK_REG:
           case TK_HEX:
@@ -312,7 +313,6 @@ int8_t check_parentheses(uint32_t p, uint32_t q) {
     else if (tokens[i].type == ')') -- stack;
     if (stack == 0 && i < q) {
       flag = 0;  // 整个表达式没被括号包裹
-      break;
     }
     else if (stack < 0) {
       flag = -1;           // 右括号多了， 表达式不对
