@@ -121,7 +121,6 @@ static bool make_token(char *e) {
             int i;
             for(i = 0; i <  32; i++)
               tokens[nr_token].str[i] = '\0';
-            printf("tk:%d\n",rules[i].token_type);
             tokens[nr_token].type = rules[i].token_type;
             ++nr_token;
             break;
@@ -258,7 +257,6 @@ int eval(uint32_t p, uint32_t q) {
   else {
     uint32_t dominant_op_index = get_dominant_op_index(p,q);
     // 二元运算符
-    printf("%d,%d,%d\n", dominant_op_index, p, dominant_op_index==p);
     if (dominant_op_index != p) {
       int expr1 = eval(p, dominant_op_index - 1);
       int expr2 = eval(dominant_op_index + 1, q);
@@ -325,7 +323,6 @@ int8_t check_parentheses(uint32_t p, uint32_t q) {
     flag = -1;
     printf("unmatched parenthese (\n");
   }             // 左括号多了
-  printf("parenthese flag is %d\n", flag);
   return flag;
 }
 
@@ -367,7 +364,6 @@ uint32_t get_dominant_op_index(uint32_t p, uint32_t q) {
         }
       }
     }
-    printf("flag is %d\n", parentheses_flag);
   }
   return dominant_index;
 }
