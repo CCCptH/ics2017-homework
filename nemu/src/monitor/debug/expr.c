@@ -253,7 +253,7 @@ int eval(uint32_t p, uint32_t q) {
   else {
     uint32_t dominant_op_index = get_dominant_op_index(p,q);
     // 二元运算符
-    printf("%d\n", dominant_op_index == p);
+    printf("%d,%d,%d\n", dominant_op_index, p, dominant_op_index==p);
     if (dominant_op_index != p) {
       int expr1 = eval(p, dominant_op_index - 1);
       int expr2 = eval(dominant_op_index + 1, q);
