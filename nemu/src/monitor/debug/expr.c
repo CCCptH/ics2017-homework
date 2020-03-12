@@ -281,6 +281,7 @@ int eval(uint32_t p, uint32_t q) {
       case '!':
         return !expr;
       case TK_DEREF:
+        printf("deref/n");
         return vaddr_read(expr, 4);
       default:
         assert(0);
