@@ -361,7 +361,7 @@ uint32_t get_dominant_op_index(uint32_t p, uint32_t q) {
         }
       }
     }
-    printf("flag%d\n", parentheses_flag);
+    printf("flag is %d\n", parentheses_flag);
   }
   return dominant_index;
 }
