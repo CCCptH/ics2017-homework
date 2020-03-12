@@ -119,9 +119,9 @@ static bool make_token(char *e) {
           case ')':
           {
             tokens[nr_token].type = rules[i].token_type;
-            int i;
-            for(i = 0; i <  32; i++)
-              tokens[nr_token].str[i] = '\0';
+            int str_i;
+            for(str_i = 0; str_i <  32; str_i++)
+              tokens[nr_token].str[str_i] = '\0';
             ++nr_token;
             break;
           }
@@ -134,10 +134,10 @@ static bool make_token(char *e) {
               printf("Number overflow\n");
               return false;
             }
-            int i;
-            for (i = 0; i < 32; i++) {
-              if (i<substr_len) tokens[nr_token].str[i] = substr_start[i];
-              else tokens[nr_token].str[i] = '\0';
+            int str_i;
+            for (str_i = 0; str_i < 32; str_i++) {
+              if (str_i<substr_len) tokens[nr_token].str[str_i] = substr_start[str_i];
+              else tokens[nr_token].str[str_i] = '\0';
             }
             ++nr_token;
             break;
@@ -256,7 +256,6 @@ int eval(uint32_t p, uint32_t q) {
   }
   else {
     uint32_t dominant_op_index = get_dominant_op_index(p,q);
-    printf("index: %d\n", dominant_op_index);
     // 二元运算符
     if (dominant_op_index != p) {
       int expr1 = eval(p, dominant_op_index - 1);
@@ -347,11 +346,11 @@ inline bool is_operator(Token *token) {
 }
 
 uint32_t get_dominant_op_index(uint32_t p, uint32_t q) {
-  // int i;
+  int i;
   int32_t parentheses_flag = 0;
   uint32_t dominant = 0;
   uint32_t dominant_index = p;
-  for (int i = p; i <= q; i++) {
+  for (i = p; i <= q; i++) {
     if (tokens[i].type == '(') ++parentheses_flag;
     else if (tokens[i].type == ')') --parentheses_flag;
     if (!is_operator(&tokens[i])) continue;
