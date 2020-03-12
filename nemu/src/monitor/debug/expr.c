@@ -358,9 +358,11 @@ uint32_t get_dominant_op_index(uint32_t p, uint32_t q) {
     else {
       if (tokens[i].type == '(') {
         ++parentheses_flag;
+        continue;
       }
       else if (tokens[i].type == ')') {
         --parentheses_flag;
+        continue;
       }
       else {
         if (get_priority(tokens[i].type) >= get_priority(dominant)) {
