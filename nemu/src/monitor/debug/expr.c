@@ -117,7 +117,11 @@ static bool make_token(char *e) {
           case TK_NEQ:
           case '(':
           case ')':
-            tokens[nr_token].str[0]='\0';
+            {
+              int i;
+              for(i = 0; i <  32; i++)
+                tokens[nr_token].str[i] = '\0';
+            }
             tokens[nr_token].type = rules[i].token_type;
             ++nr_token;
             break;
