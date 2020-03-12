@@ -309,7 +309,8 @@ int8_t check_parentheses(uint32_t p, uint32_t q) {
   int8_t stack = 0;
   int8_t flag = 1;
   for(i = p; i <= q; i++) {
-    if (tokens[i].type == '(') {++stack; printf("??\n");}
+    printf("%d\n", tokens[i].type);
+    if (tokens[i].type == '(') ++stack;
     else if (tokens[i].type == ')') --stack;
     if (stack == 0 && i < q) {
       flag = 0;  // 整个表达式没被括号包裹
