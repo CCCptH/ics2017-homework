@@ -285,6 +285,7 @@ int eval(uint32_t p, uint32_t q) {
     }
     // 一元运算符
     else {
+      printf("s\n");
       int expr = eval(p + 1, q);
       if (expr == BAD_EXPR) return BAD_EXPR;
       switch (tokens[dominant_op_index].type) {
