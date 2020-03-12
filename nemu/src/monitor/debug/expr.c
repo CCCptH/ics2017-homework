@@ -27,6 +27,14 @@ static struct rule {
    * Pay attention to the precedence level of different rules.
    */
 
+  /* if add token
+   * edit struct    rules
+   *      function  make_token
+   *      function  is_operator
+   *      function  get_dominant_op_index
+   *      function  get_priority
+   */
+
   {" +", TK_NOTYPE},    // spaces
   {"\\+", '+'},         // plus
   {"==", TK_EQ},        // equal
