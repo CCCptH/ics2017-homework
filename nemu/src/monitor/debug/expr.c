@@ -117,10 +117,14 @@ static bool make_token(char *e) {
           case TK_NEQ:
           case '(':
           case ')':
-            tokens[nr_token].str[0]='\0';
+          {
             tokens[nr_token].type = rules[i].token_type;
+            int str_i;
+            for(str_i = 0; str_i <  32; str_i++)
+              tokens[nr_token].str[str_i] = '\0';
             ++nr_token;
             break;
+          }
           case TK_NUM:
           case TK_REG:
           case TK_HEX:
@@ -130,10 +134,10 @@ static bool make_token(char *e) {
               printf("Number overflow\n");
               return false;
             }
-            int i;
-            for (i = 0; i < 32; i++) {
-              if (i<substr_len) tokens[nr_token].str[i] = substr_start[i];
-              else tokens[nr_token].str[i] = '\0';
+            int str_i;
+            for (str_i = 0; str_i < 32; str_i++) {
+              if (str_i<substr_len) tokens[nr_token].str[str_i] = substr_start[str_i];
+              else tokens[nr_token].str[str_i] = '\0';
             }
             ++nr_token;
             break;
@@ -300,18 +304,24 @@ int eval(uint32_t p, uint32_t q) {
 
 int8_t check_parentheses(uint32_t p, uint32_t q) {
   uint32_t i;
-  uint8_t stack = 0;
+  int8_t stack = 0;
   int8_t flag = 1;
   for(i = p; i <= q; i++) {
     if (tokens[i].type == '(') ++stack;
-    else if (tokens[i].type == ')') -- stack;
-    if (stack == 0 && i < q) flag = 0;  // 整个表达式没被括号包裹
-    if (stack < 0) {
+    else if (tokens[i].type == ')') --stack;
+    if (stack == 0 && i < q) {
+      flag = 0;  // 整个表达式没被括号包裹
+    }
+    else if (stack < 0) {
       flag = -1;           // 右括号多了， 表达式不对
+      printf("unmatched parenthese )\n");
       break;
     }
   }
-  if (stack > 0) flag = -1;             // 左括号多了
+  if (stack > 0) {
+    flag = -1;
+    printf("unmatched parenthese (\n");
+  }             // 左括号多了
   return flag;
 }
 
@@ -337,20 +347,18 @@ inline bool is_operator(Token *token) {
 
 uint32_t get_dominant_op_index(uint32_t p, uint32_t q) {
   int i;
-  uint32_t parentheses_flag = 0;
+  int32_t parentheses_flag = 0;
   uint32_t dominant = 0;
   uint32_t dominant_index = p;
   for (i = p; i <= q; i++) {
+    if (tokens[i].type == '(') ++parentheses_flag;
+    else if (tokens[i].type == ')') --parentheses_flag;
     if (!is_operator(&tokens[i])) continue;
-    else if (parentheses_flag > 0) continue;
+    else if (parentheses_flag != 0) continue;
     else {
-      if (tokens[i].type == '(') ++parentheses_flag;
-      else if (tokens[i].type == ')') --parentheses_flag;
-      else {
-        if (get_priority(tokens[i].type) >= get_priority(dominant)) {
-          dominant = tokens[i].type;
-          dominant_index = i;
-        }
+      if (get_priority(tokens[i].type) >= get_priority(dominant)) {
+        dominant = tokens[i].type;
+        dominant_index = i;
       }
     }
   }
