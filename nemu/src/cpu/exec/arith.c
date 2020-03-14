@@ -1,7 +1,50 @@
 #include "cpu/exec.h"
 
 make_EHelper(add) {
-  TODO();
+  // TODO();
+  /**
+   * - Operation:
+   *    DEST := DEST + SRC
+   * - Description:
+   *    The result of the addition is assigned
+   *    to the first operand (DEST),and the 
+   *    flags are set accordingly.
+   * - Flag Affected:
+   *    OF, SF, ZF, AF?, CF PF?
+   * - Flag performance
+   *    OF: Overflow flag -- et if result is too large a positive
+   *    number or too small a negative number (excluding sign-bit)
+   *    to fit in destination operand; cleared otherwise.
+   *    SF: Sign Flag -- Set equal to high-order bit of result (0 is
+   *        positive, 1 if negative).
+   *    ZF: Zero Flag -- Set if result is zero; cleared otherwise.
+   *    CF: Carry Flag -- Set on high-order bit carry or borrow;
+   *        cleared otherwise.
+   */
+
+  // evaluate the result
+  rtl_add(&t2, &id_dest->val, &id_src->val);
+
+  // write the result
+  operand_write(id_dest, &t2);
+
+  // CF
+  rtl_sltu(&t0, &t2, &id_dest->val);
+  rtl_set_CF(&t0);
+
+  // OF
+  // ?Why
+  rtl_xor(&t0, &id_dest->val, &id_src->val);
+  rtl_not(&t0);
+  rtl_xor(&t1, &id_dest->val, &t2);
+  rtl_and(&t0, &t0, &t1);
+  rtl_msb(&t0, &t0, id_dest->width);
+  rtl_set_OF(&t0);
+
+  // update ZF ,SF
+  rtl_update_ZFSF(&t2, id_dest->width);
+
+  // set OF
 
   print_asm_template2(add);
 }
