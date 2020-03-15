@@ -1,0 +1,2 @@
+[src/monitor/monitor.c,65,load_img] The image is /home/hrl/ics2017-homework/nexus-am/tests/cputest/build/dummy-x86-nemu.bin
+[src/monitor/monitor.c,30,welcome] Build time: 13:17:22, Mar 12 2020

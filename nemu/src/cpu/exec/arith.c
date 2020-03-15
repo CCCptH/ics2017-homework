@@ -139,7 +139,7 @@ make_EHelper(inc) {
    */
 
   // evaluate
-  rtl_addi(&t2, &id_dest->val, &id_src->val);
+  rtl_addi(&t2, &id_dest->val, 1);
 
   // write
   operand_write(id_dest, &t2);
