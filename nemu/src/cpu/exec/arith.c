@@ -197,8 +197,42 @@ make_EHelper(dec) {
 }
 
 make_EHelper(neg) {
-  TODO();
+  // TODO();
+  /**
+   * - Operation:
+   *    IF r/m = 0 THEN CF := 0 ELSE CF := 1; FI;
+   *    r/m := - r/m;
+   * - Description:
+   *    NEG replaces the value of a register or memory operand
+   *    with its two's complement. The operand is subtracted 
+   *    from zero, and the result is placed in the operand.
+   *    The carry flag is set to 1, unless the operand is zero,
+   *    in which case the carry flag is cleared to 0.
+   * - Flag Affects:
+   *    CF, OF, SF, ZF
+   */
 
+  // evaluate
+  rtl_sub(&t2, &tzero, &id_dest->val);
+
+  // write
+  operand_write(id_dest, &t2);
+
+  // Flags
+  rtl_update_ZFSF(&t2, id_dest->width);
+
+  if (id_dest->val == 0) rtl_set_CF(&tzero);
+  else {
+    rtl_addi(&t0, &tzero, 1);
+    rtl_set_CF(&t0);
+  }
+
+  // ?Why
+  rtl_xor(&t0, &id_dest->val, &tzero);
+  rtl_xor(&t1, &id_dest->val, &t2);
+  rtl_and(&t0, &t0, &t1);
+  rtl_msb(&t0, &t0, id_dest->width);
+  rtl_set_OF(&t0);
   print_asm_template1(neg);
 }
 
