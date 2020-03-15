@@ -44,26 +44,117 @@ make_EHelper(add) {
   // update ZF ,SF
   rtl_update_ZFSF(&t2, id_dest->width);
 
-  // set OF
-
   print_asm_template2(add);
 }
 
 make_EHelper(sub) {
-  TODO();
+  // TODO();
+  /**
+   * - Operation:
+   *    IF SRC is a byte and DEST is a word or dword
+   *    THEN DEST := DEST - SignExtend(SRC);
+   *    ELSE DEST := DEST - SRC;
+   *    FI;
+   * - Description:
+   *    SUB subtracts the second operand (SRC) from the first 
+   *    operand (DEST). The first operand is assigned the result
+   *    of the subtraction, and the flags are set accordingly.
+   *    When an immediate byte value is subtracted from a word
+   *    operand, the immediate value is first sign-extended to
+   *    the size of the destination operand.
+   * -Flag Affect:
+   *    OF, SF, ZF, CF
+   */
+  // evaluate
+  rtl_add(&t2, &id_dest->val, &id_src2->val);
+
+  // write
+  operand_write(id_dest, &t2);
+
+  // update ZF, SF
+  rtl_update_ZFSF(&t2, id_dest->width);
+
+  // CF
+  rtl_sltu(&t0, &id_dest->val, &t2);
+  rtl_set_CF(&t0);
+
+  // OF
+  rtl_xor(&t0, &id_dest->val, &id_src->val);
+  rtl_xor(&t1, &id_dest->val, &t2);
+  rtl_and(&t0, &t0, &t1);
+  rtl_msb(&t0, &t0, id_dest->width);
+  rtl_set_OF(&t0);
 
   print_asm_template2(sub);
 }
 
 make_EHelper(cmp) {
-  TODO();
+  // TODO();
+  /**
+   * - Operation:
+   *    LeftSRC - SignExtend(RightSRC);
+   *    (* CMP does not store a result;
+   *    its purpose is to set the flags *)
+   * - Description:
+   *    CMP subtracts the second operand from the first but,
+   *    unlike the SUB instruction, does not store the result;
+   *    only the flags are changed. CMP is typically used in
+   *    conjunction with conditional jumps and the SETcc
+   *    instruction. (Refer to Appendix D for the list of
+   *    signed and unsigned flag tests provided.) If an operand
+   *    greater than one byte is compared to an immediate byte,
+   *    the byte value is first sign-extended.
+   * - Flags Affected
+   *    OF, SF, ZF, CF
+   */
 
+  // evaluate
+  rtl_sub(&t2, &id_dest->val, &id_src->val);
+
+  // Flags
+  rtl_update_ZFSF(&t2, id_dest->width);
+
+  rtl_sltu(&t0, &id_dest->val, &t2);
+  rtl_set_CF(&t0);
+
+  rtl_xor(&t0, &id_dest->val, &id_src->val);
+  rtl_xor(&t1, &id_dest->val, &t2);
+  rtl_and(&t0, &t0, &t1);
+  rtl_msb(&t0, &t0, id_dest->width);
+  rtl_set_OF(&t0);
   print_asm_template2(cmp);
 }
 
 make_EHelper(inc) {
-  TODO();
+  // TODO();
+  /**
+   * - Operation
+   *    DEST := DEST + 1;
+   * - Description
+   *    INC adds 1 to the operand. It does not change the carry
+   *    flag. To affect the carry flag, use the ADD instruction
+   *    with a second operand of 1.
+   * - Flags Affected
+   *    OF, SF, ZF, CF
+   */
 
+  // evaluate
+  rtl_addi(&t2, &id_dest->val, &id_src->val);
+
+  // write
+  operand_write(id_dest, &t2);
+
+  // Flags
+  rtl_update_ZFSF(&t2, id_dest->width);
+
+  rtl_sltu(&t0, &t2, &id_dest->val);
+  rtl_set_CF(&t0);
+
+  rtl_xor(&t0, &id_dest->val, &id_src->val);
+  rtl_not(&t0);
+  rtl_xor(&t1, &id_dest->val, &t2);
+  rtl_and(&t0, &t0, &t1);
+  rtl_msb(&t0, &t0, id_dest->width);
   print_asm_template1(inc);
 }
 
