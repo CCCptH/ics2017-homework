@@ -66,7 +66,7 @@ make_EHelper(sub) {
    *    OF, SF, ZF, CF
    */
   // evaluate
-  rtl_add(&t2, &id_dest->val, &id_src2->val);
+  rtl_sub(&t2, &id_dest->val, &id_src2->val);
 
   // write
   operand_write(id_dest, &t2);
@@ -161,7 +161,17 @@ make_EHelper(inc) {
 }
 
 make_EHelper(dec) {
-  TODO();
+  // TODO();
+  /**
+   * - Operation:
+   *    DEST := DEST - 1;
+   * - Description:
+   *    DEC subtracts 1 from the operand. DEC does not change
+   *    the carry flag. To affect the carry flag, use the SUB
+   *    instruction with an immediate operand of 1.
+   * - Flags Affected:
+   *    ZF, SF, OF, CF
+   */
 
   print_asm_template1(dec);
 }
