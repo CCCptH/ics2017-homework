@@ -35,7 +35,7 @@ typedef struct {
   vaddr_t eip;
 
   union {
-    rtlreg_t eflags;
+    rtlreg_t flags;
     struct {
       rtlreg_t CF :1;
       rtlreg_t __PLACEHOLDER1 :1;
@@ -55,7 +55,7 @@ typedef struct {
       rtlreg_t RF: 1;
       rtlreg_t VM: 1;
       rtlreg_t __INVALID:14;
-    };
+    } eflags;
   };
 } CPU_state;
 
