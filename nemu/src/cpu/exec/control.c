@@ -131,8 +131,34 @@ make_EHelper(call) {
 }
 
 make_EHelper(ret) {
-  TODO();
-
+  // TODO();
+  /**
+   * - Operation
+   *    IF instruction = near RET
+   *    THEN;
+   *      IF OperandSize = 16
+   *      THEN
+   *          IP := Pop();
+   *          EIP := EIP AND 0000FFFFH;
+   *      ELSE (* OperandSize = 32 *)
+   *          EIP := Pop();
+   *      FI;
+   *      IF instruction has immediate operand THEN eSP := eSP + imm16; FI;
+   *    FI;
+   * - Description
+   *    RET transfers control to a return address located on the stack. The
+   *    address is usually placed on the stack by a CALL instruction, and
+   *    the return is made to the instruction that follows the CALL.
+   * 
+   *    The optional numeric parameter to RET gives the number of stack bytes
+   *    (OperandMode=16) or words (OperandMode=32) to be released after the
+   *    return address is popped. These items are typically used as input
+   *    parameters to the procedure called.
+   * - Flags Affected
+   *    None
+   */
+  rtl_pop(&decoding.jmp_eip);
+  decoding.is_jmp = 1;
   print_asm("ret");
 }
 
