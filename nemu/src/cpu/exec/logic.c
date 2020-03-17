@@ -13,8 +13,30 @@ make_EHelper(and) {
 }
 
 make_EHelper(xor) {
-  TODO();
+  // TODO();
+  /**
+   * - Operation
+   *    DEST := LeftSRC XOR RightSRC
+   *    CF := 0
+   *    OF := 0
+   * - Description
+   *    XOR computes the exclusive OR of the two operands. Each bit of
+   *    the result is 1 if the corresponding bits of the operands are
+   *    different; each bit is 0 if the corresponding bits are the same.
+   *    The answer replaces the first operand.
+   * - Flags Affected
+   *    CF, OF, SF, ZF
+   */
+  // evaluate
+  rtl_xor(&t2, &id_dest->val, &id_src->val);
 
+  // write
+  operand_write(id_dest, &t2);
+
+  // flags
+  rtl_update_ZFSF(&t2, id_dest->width);
+  rtl_set_OF(&tzero);
+  rtl_set_CF(&tzero);
   print_asm_template2(xor);
 }
 
