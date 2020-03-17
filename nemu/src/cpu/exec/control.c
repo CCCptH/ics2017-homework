@@ -26,6 +26,7 @@ make_EHelper(jmp_rm) {
 make_EHelper(call) {
   // the target address is calculated at the decode stage
   // TODO();
+  // ! In pa2, implement call ret32
   /**
    * - Operation
    *    IF rel16 or rel32 type of call
