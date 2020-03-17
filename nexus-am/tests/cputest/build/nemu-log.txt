@@ -2,3 +2,5 @@
 [src/monitor/monitor.c,30,welcome] Build time: 16:59:21, Mar 17 2020
   100000:   bd 00 00 00 00                        movl $0x0,%ebp
   100005:   bc 00 7c 00 00                        movl $0x7c00,%esp
+  10000a:   e8 01 00 00 00                        call 100010
+  100010:   55 55 89 e5 83 ec 08 e8 05               invalid opcode
