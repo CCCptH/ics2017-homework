@@ -147,8 +147,10 @@ static inline void rtl_sext(rtlreg_t* dest, const rtlreg_t* src1, int width) {
     break;
   case 2:
     *dest = (int32_t)((int16_t)(*src1 & 0x0000ffff));
+    break;
   case 4:
     *dest = (int32_t)(*src1);
+    break;
   default:
     panic("Invalid operand in rtl_sext\n");
     break;
@@ -197,7 +199,21 @@ static inline void rtl_msb(rtlreg_t* dest, const rtlreg_t* src1, int width) {
 
 static inline void rtl_update_ZF(const rtlreg_t* result, int width) {
   // eflags.ZF <- is_zero(result[width * 8 - 1 .. 0])
-  TODO();
+  // TODO();
+  switch (width)
+  {
+  case 1:
+    cpu.eflags.ZF = (*result & 0x000000ff) == 0;
+    break;
+  case 2:
+    cpu.eflags.ZF = (*result & 0x0000ffff) == 0;
+    break;
+  case 4:
+    cpu.eflags.ZF = (*result) == 0;
+  default:
+    panic("Invalid width in rtl_update_ZF");
+    break;
+  }
 }
 
 static inline void rtl_update_SF(const rtlreg_t* result, int width) {
