@@ -211,14 +211,16 @@ static inline void rtl_update_ZF(const rtlreg_t* result, int width) {
   case 4:
     cpu.eflags.ZF = (*result) == 0;
   default:
-    panic("Invalid width in rtl_update_ZF");
+    panic("Invalid width in rtl_update_ZF\n");
     break;
   }
 }
 
 static inline void rtl_update_SF(const rtlreg_t* result, int width) {
   // eflags.SF <- is_sign(result[width * 8 - 1 .. 0])
-  TODO();
+  // TODO();
+  Assert(width != 1 || width != 2 || width != 4, "Invalid width in rtl_update_SF\n");
+  cpu.eflags.SF = (*result) >> (width * 8 - 1) & 0x1;
 }
 
 static inline void rtl_update_ZFSF(const rtlreg_t* result, int width) {
