@@ -5,3 +5,8 @@
   10000a:   e8 01 00 00 00                        call 100010
   100010:   55                                    pushl %ebp
   100011:   89 e5                                 movl %esp,%ebp
+  100013:   83 ec 08                              subl $0x8,%esp
+  100016:   e8 05 00 00 00                        call 100020
+  100020:   31 c0                                 xorl %eax,%eax
+  100022:   c3                                    ret
+  10001b:   d6                                    nemu trap (eax = 0)
