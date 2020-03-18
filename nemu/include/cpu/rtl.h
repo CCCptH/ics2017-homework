@@ -211,7 +211,7 @@ static inline void rtl_update_ZF(const rtlreg_t* result, int width) {
   case 4:
     cpu.eflags.ZF = (*result) == 0;
   default:
-    panic("Invalid width in rtl_update_ZF\n");
+    panic("Invalid width %d in rtl_update_ZF\n", width);
     break;
   }
 }
