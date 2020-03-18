@@ -5,10 +5,11 @@ make_EHelper(operand_size);
 // special
 make_EHelper(inv);
 make_EHelper(nemu_trap);
+make_EHelper(nop);
 
 // control
 make_EHelper(call);
-make_EHelper(ret);      // todo: add to opcode_table
+make_EHelper(ret);
 make_EHelper(jmp);      // todo: add to opcode_table
 make_EHelper(jcc);      // todo: add to opcode_table
 make_EHelper(jmp_rm);   // todo: add to opcode_table
@@ -52,3 +53,12 @@ make_EHelper(shl);      // todo: add to opcode_table
 make_EHelper(shr);      // todo: add to opcode_table
 make_EHelper(setcc);    // todo: add to opcode_table
 make_EHelper(not);      // todo: add to opcode_table
+
+// system
+make_EHelper(int);
+make_EHelper(iret);
+make_EHelper(lidt);
+make_EHelper(mov_r2cr);
+make_EHelper(mov_cr2r);
+make_EHelper(in);
+make_EHelper(out);
