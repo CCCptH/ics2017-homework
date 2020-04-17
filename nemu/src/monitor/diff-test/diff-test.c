@@ -161,10 +161,10 @@ void difftest_step(uint32_t eip) {
   // if (cpu.eip!=r.eip) which = -1;
 
   if (diff) {
-    // nemu_state = NEMU_END;
+    nemu_state = NEMU_END;
     if(which != -1)
       printf(" - Difference in %s. QEMU: %x, NEMU: %x\n", reg_name(which, 4), r.array[which], cpu.gpr[which]);
-    // else
+    else
       printf(" - Difference in eip. QEMU: %x, NEMU: %x\n", r.eip, cpu.eip);
     
   }
