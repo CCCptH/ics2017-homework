@@ -1,29 +1,12 @@
-[src/monitor/monitor.c,65,load_img] The image is /home/hrl/ics2017-homework/nexus-am/tests/cputest/build/bubble-sort-x86-nemu.bin
+[src/monitor/monitor.c,65,load_img] The image is /home/hrl/ics2017-homework/nexus-am/tests/cputest/build/dummy-x86-nemu.bin
 [src/monitor/monitor.c,30,welcome] Build time: 15:57:54, Apr 17 2020
   100000:   bd 00 00 00 00                        movl $0x0,%ebp
   100005:   bc 00 7c 00 00                        movl $0x7c00,%esp
-  10000a:   e8 0d 00 00 00                        call 10001c
-  10001c:   55                                    pushl %ebp
-  10001d:   89 e5                                 movl %esp,%ebp
-  10001f:   83 ec 08                              subl $0x8,%esp
-  100022:   e8 65 00 00 00                        call 10008c
-  10008c:   8d 4c 24 04                           leal 0x4(%esp),%ecx
-  100090:   83 e4 f0                              andl $0xf0,%esp
-  100093:   ff 71 fc                              pushl -0x4(%ecx)
-  100096:   55                                    pushl %ebp
-  100097:   89 e5                                 movl %esp,%ebp
-  100099:   53                                    pushl %ebx
-  10009a:   51                                    pushl %ecx
-  10009b:   bb 13 00 00 00                        movl $0x13,%ebx
-  1000a0:   31 c0                                 xorl %eax,%eax
-  1000a2:   66 90                                 nop
-  1000a4:   39 c3                                 cmpl %eax,%ebx
-  1000a6:   7e 25                                 jle 1000cd
-  1000a8:   8b 14 85 a0 01 10 00                  movl 0x1001a0(,%eax,4),%edx
-  1000af:   40                                    incl %eax
-  1000b0:   8b 0c 85 a0 01 10 00                  movl 0x1001a0(,%eax,4),%ecx
-  1000b7:   39 ca                                 cmpl %ecx,%edx
-  1000b9:   7e e9                                 jle 1001a4
-  1001a4:   0c 00                                 orb $0x0,%al
-  1001a6:   00 00                                 addb %al,(%eax)
-  1001a8:   0e 0e 00 00 00 06 00 00 00               invalid opcode
+  10000a:   e8 01 00 00 00                        call 100010
+  100010:   55                                    pushl %ebp
+  100011:   89 e5                                 movl %esp,%ebp
+  100013:   83 ec 08                              subl $0x8,%esp
+  100016:   e8 05 00 00 00                        call 100020
+  100020:   31 c0                                 xorl %eax,%eax
+  100022:   c3                                    ret
+  10001b:   d6                                    nemu trap (eax = 0)
