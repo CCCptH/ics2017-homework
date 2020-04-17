@@ -31,3 +31,49 @@
   10009e:   8b 84 de 04 01 10 00                  movl 0x100104(%esi,%ebx,8),%eax
   1000a5:   31 d0                                 xorl %edx,%eax
   1000a7:   09 c1                                 orl %eax,%ecx
+  1000a9:   0f 94 c0                              sete %al
+  1000ac:   0f b6 c0                              movzxl %al,%al
+  1000af:   50                                    pushl %eax
+  1000b0:   e8 77 ff ff ff                        call 10002c
+  10002c:   55                                    pushl %ebp
+  10002d:   89 e5                                 movl %esp,%ebp
+  10002f:   8b 45 08                              movl 0x8(%ebp),%eax
+  100032:   85 c0                                 testl %eax,%eax
+  100034:   74 02                                 je 100038
+  100036:   5d                                    popl %ebp
+  100037:   c3                                    ret
+  1000b5:   43                                    incl %ebx
+  1000b6:   83 c4 10                              addl $0x10,%esp
+  1000b9:   83 fb 08                              cmpl $0x8,%ebx
+  1000bc:   75 ba                                 jne 100178
+  100178:   00 00                                 addb %al,(%eax)
+  10017a:   00 00                                 addb %al,(%eax)
+  10017c:   00 00                                 addb %al,(%eax)
+  10017e:   00 00                                 addb %al,(%eax)
+  100180:   02 00                                 addb (%eax),%al
+  100182:   00 00                                 addb %al,(%eax)
+  100184:   00 00                                 addb %al,(%eax)
+  100186:   00 00                                 addb %al,(%eax)
+  100188:   03 00                                 addl (%eax),%eax
+  10018a:   00 00                                 addb %al,(%eax)
+  10018c:   00 00                                 addb %al,(%eax)
+  10018e:   00 00                                 addb %al,(%eax)
+  100190:   04 00                                 addb $0x0,%al
+  100192:   00 00                                 addb %al,(%eax)
+  100194:   00 00                                 addb %al,(%eax)
+  100196:   00 00                                 addb %al,(%eax)
+  100198:   01 00                                 addl %eax,(%eax)
+  10019a:   00 00                                 addb %al,(%eax)
+  10019c:   00 00                                 addb %al,(%eax)
+  10019e:   00 80 02 00 00 00                     addb %al,0x2(%eax)
+  1001a4:   00 00                                 addb %al,(%eax)
+  1001a6:   00 80 03 00 00 00                     addb %al,0x3(%eax)
+  1001ac:   00 00                                 addb %al,(%eax)
+  1001ae:   00 80 00 00 00 00                     addb %al,0(%eax)
+  1001b4:   00 00                                 addb %al,(%eax)
+  1001b6:   00 00                                 addb %al,(%eax)
+  1001b8:   01 00                                 addl %eax,(%eax)
+  1001ba:   00 00                                 addb %al,(%eax)
+  1001bc:   00 00                                 addb %al,(%eax)
+  1001be:   00 00                                 addb %al,(%eax)
+  1001c0:   ff ff ff ff ff ff ff ff ff 7f               invalid opcode
