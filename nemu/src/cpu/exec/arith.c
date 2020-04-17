@@ -66,7 +66,7 @@ make_EHelper(sub) {
    *    OF, SF, ZF, CF
    */
   // evaluate
-  rtl_sub(&t2, &id_dest->val, &id_src2->val);
+  rtl_sub(&t2, &id_dest->val, &id_src->val);
 
   // write
   operand_write(id_dest, &t2);
