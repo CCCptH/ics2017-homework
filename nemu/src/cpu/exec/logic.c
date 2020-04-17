@@ -14,7 +14,7 @@ make_EHelper(and) {
   // TODO();
   // ????
   printf("edx:%x, eax:%x\n", cpu.edx, cpu.eax);
-  printf("edx:%x, eax:%x\n", id_dest->val, id_src->val);
+  printf("edx:%x, eax:%x\n", id_src->val, id_dest->val);
   rtl_and(&t0, &id_dest->val, &id_src->val);
   operand_write(id_dest, &t0);
   printf("edx:%x, eax:%x\n", cpu.edx, cpu.eax);
