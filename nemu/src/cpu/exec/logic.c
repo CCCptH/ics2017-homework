@@ -13,7 +13,7 @@ make_EHelper(test) {
 make_EHelper(and) {
   // TODO();
   // ????
-  printf("%x, %x\n", id_dest->val, id_src->val);
+  printf("%x, %x\n", cpu.edx, cpu.eax);
   rtl_and(&t0, &id_dest->val, &id_src->val);
   operand_write(id_dest, &t0);
   rtl_update_ZFSF(&t0, id_dest->width);
