@@ -1,2 +1,82 @@
 [src/monitor/monitor.c,65,load_img] The image is /home/hrl/ics2017-homework/nexus-am/tests/cputest/build/bit-x86-nemu.bin
 [src/monitor/monitor.c,30,welcome] Build time: 15:57:54, Apr 17 2020
+  100000:   bd 00 00 00 00                        movl $0x0,%ebp
+  100005:   bc 00 7c 00 00                        movl $0x7c00,%esp
+  10000a:   e8 0d 00 00 00                        call 10001c
+  10001c:   55                                    pushl %ebp
+  10001d:   89 e5                                 movl %esp,%ebp
+  10001f:   83 ec 08                              subl $0x8,%esp
+  100022:   e8 81 00 00 00                        call 1000a8
+  1000a8:   8d 4c 24 04                           leal 0x4(%esp),%ecx
+  1000ac:   83 e4 f0                              andl $0xf0,%esp
+  1000af:   ff 71 fc                              pushl -0x4(%ecx)
+  1000b2:   55                                    pushl %ebp
+  1000b3:   89 e5                                 movl %esp,%ebp
+  1000b5:   53                                    pushl %ebx
+  1000b6:   51                                    pushl %ecx
+  1000b7:   83 ec 18                              subl $0x18,%esp
+  1000ba:   c6 45 f6 aa                           movb $0xaa,-0xa(%ebp)
+  1000be:   6a 00                                 pushb $0x0
+  1000c0:   8d 5d f6                              leal -0xa(%ebp),%ebx
+  1000c3:   53                                    pushl %ebx
+  1000c4:   e8 7f ff ff ff                        call 100048
+  100048:   55                                    pushl %ebp
+  100049:   89 e5                                 movl %esp,%ebp
+  10004b:   8b 4d 0c                              movl 0xc(%ebp),%ecx
+  10004e:   89 ca                                 movl %ecx,%edx
+  100050:   c1 fa 03                              sarl $0x3,%edx
+  100053:   83 e1 07                              andl $0x7,%ecx
+  100056:   b8 01 00 00 00                        movl $0x1,%eax
+  10005b:   d3 e0                                 shll %cl,%eax
+  10005d:   8b 4d 08                              movl 0x8(%ebp),%ecx
+  100060:   84 04 11                              testb %al,(%ecx,%edx,1)
+  100063:   0f 95 c0                              setne %al
+  100066:   5d                                    popl %ebp
+  100067:   c3                                    ret
+  1000c9:   84 c0                                 testb %al,%al
+  1000cb:   0f 94 c0                              sete %al
+  1000ce:   0f b6 c0                              movzxl %al,%al
+  1000d1:   89 04 24                              movl %eax,(%esp)
+  1000d4:   e8 53 ff ff ff                        call 10002c
+  10002c:   55                                    pushl %ebp
+  10002d:   89 e5                                 movl %esp,%ebp
+  10002f:   8b 45 08                              movl 0x8(%ebp),%eax
+  100032:   85 c0                                 testl %eax,%eax
+  100034:   74 02                                 je 100038
+  100036:   5d                                    popl %ebp
+  100037:   c3                                    ret
+  1000d9:   58                                    popl %eax
+  1000da:   5a                                    popl %edx
+  1000db:   6a 01                                 pushb $0x1
+  1000dd:   53                                    pushl %ebx
+  1000de:   e8 65 ff ff ff                        call 100048
+  100048:   55                                    pushl %ebp
+  100049:   89 e5                                 movl %esp,%ebp
+  10004b:   8b 4d 0c                              movl 0xc(%ebp),%ecx
+  10004e:   89 ca                                 movl %ecx,%edx
+  100050:   c1 fa 03                              sarl $0x3,%edx
+  100053:   83 e1 07                              andl $0x7,%ecx
+  100056:   b8 01 00 00 00                        movl $0x1,%eax
+  10005b:   d3 e0                                 shll %cl,%eax
+  10005d:   8b 4d 08                              movl 0x8(%ebp),%ecx
+  100060:   84 04 11                              testb %al,(%ecx,%edx,1)
+  100063:   0f 95 c0                              setne %al
+  100066:   5d                                    popl %ebp
+  100067:   c3                                    ret
+  1000e3:   fe c8                                 decb %al
+  1000e5:   0f 94 c0                              sete %al
+  1000e8:   0f b6 c0                              movzxl %al,%al
+  1000eb:   89 04 24                              movl %eax,(%esp)
+  1000ee:   e8 39 ff ff ff                        call 10002c
+  10002c:   55                                    pushl %ebp
+  10002d:   89 e5                                 movl %esp,%ebp
+  10002f:   8b 45 08                              movl 0x8(%ebp),%eax
+  100032:   85 c0                                 testl %eax,%eax
+  100034:   74 02                                 je 100038
+  100038:   c7 45 08 01 00 00 00                  movl $0x1,0x8(%ebp)
+  10003f:   5d                                    popl %ebp
+  100040:   e9 cb ff ff ff                        jmp 100010
+  100010:   55                                    pushl %ebp
+  100011:   89 e5                                 movl %esp,%ebp
+  100013:   8b 45 08                              movl 0x8(%ebp),%eax
+  100016:   d6                                    nemu trap (eax = 1)
