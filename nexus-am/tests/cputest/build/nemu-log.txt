@@ -1,12 +1,33 @@
-[src/monitor/monitor.c,65,load_img] The image is /home/hrl/ics2017-homework/nexus-am/tests/cputest/build/dummy-x86-nemu.bin
-[src/monitor/monitor.c,30,welcome] Build time: 16:59:21, Mar 17 2020
+[src/monitor/monitor.c,65,load_img] The image is /home/hrl/ics2017-homework/nexus-am/tests/cputest/build/add-longlong-x86-nemu.bin
+[src/monitor/monitor.c,30,welcome] Build time: 15:57:54, Apr 17 2020
   100000:   bd 00 00 00 00                        movl $0x0,%ebp
   100005:   bc 00 7c 00 00                        movl $0x7c00,%esp
-  10000a:   e8 01 00 00 00                        call 100010
-  100010:   55                                    pushl %ebp
-  100011:   89 e5                                 movl %esp,%ebp
-  100013:   83 ec 08                              subl $0x8,%esp
-  100016:   e8 05 00 00 00                        call 100020
-  100020:   31 c0                                 xorl %eax,%eax
-  100022:   c3                                    ret
-  10001b:   d6                                    nemu trap (eax = 0)
+  10000a:   e8 0d 00 00 00                        call 10001c
+  10001c:   55                                    pushl %ebp
+  10001d:   89 e5                                 movl %esp,%ebp
+  10001f:   83 ec 08                              subl $0x8,%esp
+  100022:   e8 35 00 00 00                        call 10005c
+  10005c:   8d 4c 24 04                           leal 0x4(%esp),%ecx
+  100060:   83 e4 f0                              andl $0xf0,%esp
+  100063:   ff 71 fc                              pushl -0x4(%ecx)
+  100066:   55                                    pushl %ebp
+  100067:   89 e5                                 movl %esp,%ebp
+  100069:   57                                    pushl %edi
+  10006a:   56                                    pushl %esi
+  10006b:   53                                    pushl %ebx
+  10006c:   51                                    pushl %ecx
+  10006d:   83 ec 08                              subl $0x8,%esp
+  100070:   31 f6                                 xorl %esi,%esi
+  100072:   31 ff                                 xorl %edi,%edi
+  100074:   31 db                                 xorl %ebx,%ebx
+  100076:   66 90                                 nop
+  100078:   83 ec 0c                              subl $0xc,%esp
+  10007b:   8b 87 00 03 10 00                     movl 0x100300(%edi),%eax
+  100081:   8b 97 04 03 10 00                     movl 0x100304(%edi),%edx
+  100087:   03 04 dd 00 03 10 00                  addl 0x100300(,%ebx,8),%eax
+  10008e:   13 14 dd 04 03 10 00                  adcl 0x100304(,%ebx,8),%edx
+  100095:   8b 8c de 00 01 10 00                  movl 0x100100(%esi,%ebx,8),%ecx
+  10009c:   31 c1                                 xorl %eax,%ecx
+  10009e:   8b 84 de 04 01 10 00                  movl 0x100104(%esi,%ebx,8),%eax
+  1000a5:   31 d0                                 xorl %edx,%eax
+  1000a7:   09 c1                                 orl %eax,%ecx
