@@ -71,7 +71,7 @@ make_EHelper(sar) {
   // !!!
   rtl_sar(&t0, &id_dest->val, &id_src->val);
   operand_write(id_dest, &t0);
-  rtl_update_ZFSF(t0, 4);
+  rtl_update_ZFSF(&t0, 4);
   print_asm_template2(sar);
 }
 
