@@ -56,6 +56,7 @@ void pio_write(ioaddr_t, int, uint32_t);
 
 make_EHelper(in) {
   // TODO();
+  Log("%x\n", id_src->val);
   t0 = pio_read(id_src->val, id_src->width);
   operand_write(id_dest, &t0);
   print_asm_template2(in);
@@ -67,7 +68,6 @@ make_EHelper(in) {
 
 make_EHelper(out) {
   // TODO();
-  Log("%d", id_dest->val);
   pio_write(id_dest->val, id_src->width, id_src->val);
   print_asm_template2(out);
 
