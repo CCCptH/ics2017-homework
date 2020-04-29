@@ -2,8 +2,7 @@
 
 void print(const char *s) {
   for (; *s; s ++) {
-    // _putc(*s);
-    _putc('a');
+    _putc(*s);
   }
 }
 int main() {
