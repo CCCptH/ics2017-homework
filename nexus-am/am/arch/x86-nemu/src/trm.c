@@ -29,8 +29,7 @@ static void serial_init() {
 #include <stdio.h>
 void _putc(char ch) {
 #ifdef HAS_SERIAL
-  // while ((inb(SERIAL_PORT + 5) & 0x20) == 0);
-  printf("%c", ch);
+  while ((inb(SERIAL_PORT + 5) & 0x20) == 0);
   outb(SERIAL_PORT, ch);
 #endif
 }
