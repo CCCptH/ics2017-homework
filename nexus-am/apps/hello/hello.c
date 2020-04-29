@@ -4,7 +4,7 @@
 
 void print(const char *s) {
   for (; *s; s ++) {
-    printf("??\n");
+    printf("???????\n");
     _putc(*s);
   }
 }
