@@ -45,6 +45,7 @@ make_EHelper(int) {
 
 make_EHelper(iret) {
   //TODO();
+  Log(">??\n");
   rtl_pop(&decoding.jmp_eip);
   rtl_pop(&cpu.flags);
   decoding.is_jmp = true;
