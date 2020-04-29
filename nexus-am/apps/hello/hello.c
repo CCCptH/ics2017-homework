@@ -4,8 +4,8 @@
 
 void print(const char *s) {
   for (; *s; s ++) {
-    _putc(*s);
     printf("??\n");
+    _putc(*s);
   }
 }
 int main() {
