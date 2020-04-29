@@ -4,7 +4,7 @@ void diff_test_skip_qemu();
 void diff_test_skip_nemu();
 
 make_EHelper(lidt) {
-  TODO();
+  // TODO();
   cpu.idtr.limit = vaddr_read(id_dest->addr, 2);
   if (decoding.is_operand_size_16) {
     cpu.idtr.base = vaddr_read(id_dest->addr+2, 4) & 0x00ffffff;
@@ -57,6 +57,7 @@ void pio_write(ioaddr_t, int, uint32_t);
 make_EHelper(in) {
   // TODO();
   t0 = pio_read(id_src->val, id_src->width);
+  Log("%x\n", id_src->width);
   operand_write(id_dest, &t0);
   print_asm_template2(in);
 
