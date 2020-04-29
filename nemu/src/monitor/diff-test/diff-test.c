@@ -17,7 +17,7 @@ void gdb_exit(void);
 static bool is_skip_qemu;
 static bool is_skip_nemu;
 
-void diff_test_skip_qemu() { is_skip_qemu = true; }
+void diff_test_skip_qemu() { /* is_skip_qemu = true;*/ }
 void diff_test_skip_nemu() { is_skip_nemu = true; }
 
 #define regcpy_from_nemu(regs) \
