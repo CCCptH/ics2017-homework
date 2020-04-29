@@ -17,7 +17,7 @@ void gdb_exit(void);
 static bool is_skip_qemu;
 static bool is_skip_nemu;
 
-void diff_test_skip_qemu() { /* is_skip_qemu = true;*/ }
+void diff_test_skip_qemu() { is_skip_qemu = true; }
 void diff_test_skip_nemu() { is_skip_nemu = true; }
 
 #define regcpy_from_nemu(regs) \
@@ -161,7 +161,7 @@ void difftest_step(uint32_t eip) {
   if (cpu.eip!=r.eip) which = -1;
 
   if (diff) {
-    // nemu_state = NEMU_END;
+    nemu_state = NEMU_END;
     if(which != -1)
       printf(" - Difference in %s. QEMU: %x, NEMU: %x\n", reg_name(which, 4), r.array[which], cpu.gpr[which]._32);
     else
