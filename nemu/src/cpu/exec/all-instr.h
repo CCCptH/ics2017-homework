@@ -27,6 +27,7 @@ make_EHelper(sbb);      // todo: add to opcode_table
 make_EHelper(mul);      // todo: add to opcode_table
 make_EHelper(imul1);    // todo: add to opcode_table
 make_EHelper(imul2);    // todo: add to opcode_table
+make_EHelper(imul3);    // todo: add to opcode_table
 make_EHelper(div);      // todo: add to opcode_table
 make_EHelper(idiv);     // todo: add to opcode_table
 
