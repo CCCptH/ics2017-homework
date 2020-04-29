@@ -45,7 +45,6 @@ make_EHelper(int) {
 
 make_EHelper(iret) {
   //TODO();
-  Log(">??\n");
   rtl_pop(&decoding.jmp_eip);
   rtl_pop(&cpu.flags);
   decoding.is_jmp = true;
@@ -59,6 +58,7 @@ make_EHelper(in) {
   // TODO();
   t0 = pio_read(id_src->val, id_src->width);
   operand_write(id_dest, &t0);
+  Log("?");
   print_asm_template2(in);
 
 #ifdef DIFF_TEST
