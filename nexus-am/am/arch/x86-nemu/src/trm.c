@@ -26,10 +26,11 @@ static void serial_init() {
   outb(SERIAL_PORT + 4, 0x0B);
 #endif
 }
-
+#include <stdio.h>
 void _putc(char ch) {
 #ifdef HAS_SERIAL
   // while ((inb(SERIAL_PORT + 5) & 0x20) == 0);
+  printf("%c", ch);
   outb(SERIAL_PORT, ch);
 #endif
 }
