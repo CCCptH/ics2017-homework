@@ -54,6 +54,7 @@ make_EHelper(shl);      // todo: add to opcode_table
 make_EHelper(shr);      // todo: add to opcode_table
 make_EHelper(setcc);    // todo: add to opcode_table
 make_EHelper(not);      // todo: add to opcode_table
+make_EHelper(rol);
 
 // system
 make_EHelper(int);
