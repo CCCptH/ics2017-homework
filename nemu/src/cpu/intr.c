@@ -19,4 +19,5 @@ void raise_intr(uint8_t NO, vaddr_t ret_addr) {
 }
 
 void dev_raise_intr() {
+  printf("TF Flag is: %d\n", cpu.eflags.TF);
 }
