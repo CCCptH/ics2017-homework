@@ -24,7 +24,7 @@ static inline void rtl_li(rtlreg_t* dest, uint32_t imm) {
 #define c_sltu(a, b) ((a) < (b))
 
 #define make_rtl_arith_logic(name) \
-  static inline void concat(rtl_, name) (rtlreg_t* dest, const rtlreg_t* src1, const rtlreg_t* src2) { \
+  static void concat(rtl_, name) (rtlreg_t* dest, const rtlreg_t* src1, const rtlreg_t* src2) { \
     *dest = concat(c_, name) (*src1, *src2); \
   } \
   static inline void concat3(rtl_, name, i) (rtlreg_t* dest, const rtlreg_t* src1, int imm) { \
@@ -197,7 +197,7 @@ static inline void rtl_msb(rtlreg_t* dest, const rtlreg_t* src1, int width) {
   *dest = ((*src1) >> (width * 8 - 1)) & 0x1;
 }
 
-inline void rtl_update_ZF(const rtlreg_t* result, int width) {
+static inline void rtl_update_ZF(const rtlreg_t* result, int width) {
   // eflags.ZF <- is_zero(result[width * 8 - 1 .. 0])
   // TODO();
   switch (width)
