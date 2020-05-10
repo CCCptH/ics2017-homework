@@ -218,9 +218,6 @@ static make_EHelper(2byte_esc) {
 }
 
 make_EHelper(real) {
-#ifdef DEBUG
-  instruction_counter++;
-#endif
   uint32_t opcode = instr_fetch(eip, 1);
   decoding.opcode = opcode;
   set_width(opcode_table[opcode].width);
@@ -260,4 +257,9 @@ void exec_wrapper(bool print_flag) {
   void difftest_step(uint32_t);
   difftest_step(eip);
 #endif
+
+#ifdef DEBUG
+  instruction_counter++;
+#endif
+
 }
