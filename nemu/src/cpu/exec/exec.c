@@ -1,6 +1,10 @@
 #include "cpu/exec.h"
 #include "all-instr.h"
 
+#ifdef DEBUG
+long instruction_counter = 0;
+#endif
+
 typedef struct {
   DHelper decode;
   EHelper execute;
@@ -214,6 +218,9 @@ static make_EHelper(2byte_esc) {
 }
 
 make_EHelper(real) {
+#ifdef DEBUG
+  instruction_counter++;
+#endif
   uint32_t opcode = instr_fetch(eip, 1);
   decoding.opcode = opcode;
   set_width(opcode_table[opcode].width);

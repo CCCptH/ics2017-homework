@@ -164,6 +164,9 @@ void difftest_step(uint32_t eip) {
 
   if (cpu.flags != r.eflags) which = -3;
 
+  extern long instruction_counter;
+  printf(" - Instruction num: %d\n", instruction_counter);
+
   if (diff) {
     nemu_state = NEMU_END;
     if(which > -1)
