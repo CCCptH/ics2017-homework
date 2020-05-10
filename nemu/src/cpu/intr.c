@@ -9,6 +9,7 @@ void raise_intr(uint8_t NO, vaddr_t ret_addr) {
   rtl_push(&cpu.flags);
   cpu.eflags.IF = 0;
   cpu.eflags.TF = 0;
+  rtl_push(&cpu.CS);
   rtl_push(&ret_addr);
   uint32_t base = cpu.idtr.base;
   uint32_t low = vaddr_read(base + NO*8, 4) & 0x0000ffff;
