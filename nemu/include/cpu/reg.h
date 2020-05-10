@@ -34,6 +34,8 @@ typedef struct {
 
   vaddr_t eip;
 
+  rtlreg_t CS;
+
   union {
     rtlreg_t flags;
     struct {
