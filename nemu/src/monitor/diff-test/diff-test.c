@@ -165,9 +165,9 @@ void difftest_step(uint32_t eip) {
   if (cpu.flags != r.eflags) which = -3;
 
   extern long instruction_counter;
-  printf(" - Instruction num: %d\n", instruction_counter);
 
   if (diff) {
+    printf(" - Instruction num: %d\n", instruction_counter);
     nemu_state = NEMU_END;
     if(which > -1)
       printf(" - Difference in %s. QEMU: %x, NEMU: %x\n", reg_name(which, 4), r.array[which], cpu.gpr[which]._32);
