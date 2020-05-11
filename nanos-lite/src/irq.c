@@ -2,8 +2,8 @@
 
 static _RegSet* do_event(_Event e, _RegSet* r) {
   switch (e.event) {
-    case 3:
-    break;
+    case 8:
+    TODO();
     default: panic("Unhandled event ID = %d", e.event);
   }
 
