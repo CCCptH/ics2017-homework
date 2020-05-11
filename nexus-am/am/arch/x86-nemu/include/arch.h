@@ -24,10 +24,10 @@ struct _RegSet {
             eflags;
 };
 
-#define SYSCALL_ARG1(r) r->eax
-#define SYSCALL_ARG2(r) r->ebx
-#define SYSCALL_ARG3(r) r->ecx
-#define SYSCALL_ARG4(r) r->edx
+#define SYSCALL_ARG1(r)  0 //r->eax
+#define SYSCALL_ARG2(r)  0 //r->ebx
+#define SYSCALL_ARG3(r)  0 //r->ecx
+#define SYSCALL_ARG4(r)  0 //r->edx
 
 #ifdef __cplusplus
 extern "C" {
