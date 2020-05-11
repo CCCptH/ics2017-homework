@@ -162,7 +162,7 @@ void difftest_step(uint32_t eip) {
 
   if (cpu.CS != r.cs) which = -2;
 
-  if (cpu.flags != r.eflags) which = -3;
+  if ((cpu.flags & 0x2) != (r.eflags & 0x2)) which = -3;
 
   extern long instruction_counter;
 
@@ -172,10 +172,10 @@ void difftest_step(uint32_t eip) {
     if(which > -1)
       printf(" - Difference in %s. QEMU: %x, NEMU: %x\n", reg_name(which, 4), r.array[which], cpu.gpr[which]._32);
     else if (which == -1)
-      printf(" - Difference in eip. QEMU: %x, NEMU: %x\n", r.eip, cpu.eip);
+      printf(" - Difference in eip. QEMU: %x, NEMU: %x\n", cpu.eip, r.eip);
     else if (which == -2)
-      printf(" - Difference in cs. QEMU: %x, NEMU: %x\n", r.cs, cpu.CS);
+      printf(" - Difference in cs. QEMU: %x, NEMU: %x\n", cpu.CS, r.cs);
     else if (which == -3)
-      printf(" - Difference in eflags. QEMU: %x, NEMU: %x\n", r.eflags, cpu.flags);
+      printf(" - Difference in eflags. QEMU: %x, NEMU: %x\n", cpu.flags, r.eflags);
   }
 }
