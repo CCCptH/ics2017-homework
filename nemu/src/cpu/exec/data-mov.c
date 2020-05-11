@@ -57,7 +57,7 @@ make_EHelper(pop) {
 }
 
 make_EHelper(pusha) {
-  TODO();
+  // TODO();
   //if (decoding.is_operand_size_16) {
   //  t0 = reg_w(4);
   //  rtl_push(&reg_w(0));
