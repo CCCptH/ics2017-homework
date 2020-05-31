@@ -25,7 +25,7 @@ _RegSet* do_syscall(_RegSet *r) {
       size_t len = a[3];
       if (fd == 1 || fd == 2) {
         char c;
-        Log("buffer:%s", (char*)buf);
+        //Log("buffer:%s", (char*)buf);
         for (int i=0;i<len;i++) {
           memcpy(&c, buf+i, 1);
           _putc(c);
