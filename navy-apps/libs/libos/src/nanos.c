@@ -38,7 +38,7 @@ void *_sbrk(intptr_t increment){
   if (r==0) {
     uintptr_t temp = probrk;
     probrk = probrk_new;
-    return (void *) temp;
+    // return (void *) temp;
   }
   return (void *)-1;
 }
