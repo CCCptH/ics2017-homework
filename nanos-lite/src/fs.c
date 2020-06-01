@@ -75,7 +75,6 @@ ssize_t fs_read(int fd, void* buf, size_t len) {
   case FD_EVENTS:
     return events_read(buf, len);
   case FD_DISPINFO:
-    Log("gggggggggg");
     dispinfo_read(buf, get_open_offset(fd), len);
     break;
   default:
@@ -101,7 +100,6 @@ ssize_t fs_write(int fd, void* buf, size_t len) {
     return 0;
   case FD_FB:
     fb_write(buf, get_open_offset(fd), len);
-    Log("gggggggggg");
     break;
   
   default:
