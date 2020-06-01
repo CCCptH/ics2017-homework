@@ -176,3 +176,11 @@ make_EHelper(lea) {
   operand_write(id_dest, &t2);
   print_asm_template2(lea);
 }
+
+make_EHelper(movsb) {
+  rtl_lm(&t0, &cpu.esi, 1);
+  rtl_sm(&cpu.edi, &t0, 1);
+  ++cpu.esi;
+  ++cpu.edi;
+  print_asm_template2(movsb);
+}

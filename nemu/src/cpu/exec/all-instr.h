@@ -43,6 +43,7 @@ make_EHelper(cwtl);     // todo: add to opcode_table
 make_EHelper(movsx);    // todo: add to opcode_table
 make_EHelper(movzx);    // todo: add to opcode_table
 make_EHelper(lea);      // todo: add to opcode_table
+make_EHelper(movsb);
 
 // logic
 make_EHelper(test);     // todo: add to opcode_table
