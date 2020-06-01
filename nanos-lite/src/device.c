@@ -33,7 +33,7 @@ void dispinfo_read(void *buf, off_t offset, size_t len) {
 }
 
 void fb_write(const void *buf, off_t offset, size_t len) {
-  assert(offset%4 && len%4 == true);
+  // assert(offset%4 && len%4 == true);
   // int height = _screen.height;
   int width = _screen.width;
   int index = offset/4;
@@ -67,6 +67,7 @@ void init_device() {
   int width = _screen.width;
   int height = _screen.height;
   Log("Inditializing device...WIDTH:%dHEIGHT:%d\n", width, height);
+  //sprintf(dispinfo, "WIDTH%dHEIGHT%d\n", width, height);
   strcpy(dispinfo ,"WIDTH:400\nHEIGHT:300");
   //Log("Inditializing device...Done");
 }
