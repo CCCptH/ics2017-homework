@@ -60,7 +60,7 @@ int fs_open(const char* name, int flags, int mode) {
 }
 
 extern void dispinfo_read(void *buf, off_t offset, size_t len);
-
+extern size_t events_read(void *buf, size_t len) ;
 ssize_t fs_read(int fd, void* buf, size_t len) {
   assert(fd>=0 && fd<NR_FILES);
   int n=fs_filesz(fd) - get_open_offset(fd);
@@ -72,6 +72,8 @@ ssize_t fs_read(int fd, void* buf, size_t len) {
   case 2:
     Log("arg invalid: fd < 3");
     return 0;
+  case FD_EVENTS:
+    return events_read(buf, len);
   case FD_DISPINFO:
     dispinfo_read(buf, get_open_offset(fd), len);
     break;
