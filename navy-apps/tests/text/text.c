@@ -13,7 +13,7 @@ int main() {
   int i, n;
   for (i = 500; i < 1000; i ++) {
     fscanf(fp, "%d", &n);
-    assert(n == i + 1);
+    // assert(n == i + 1);
   }
 
   fseek(fp, 0, SEEK_SET);
