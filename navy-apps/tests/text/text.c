@@ -9,8 +9,10 @@ int main() {
   fseek(fp, 0, SEEK_END);
   printf("%d\n\n", SEEK_END);
   long size = ftell(fp);
+  printf("%d\n\n", SEEK_END);
   assert(size == 5000);
-
+  printf("%d\n\n", SEEK_END);
+  
   fseek(fp, 500 * 5, SEEK_SET);
   int i, n;
   for (i = 500; i < 1000; i ++) {
