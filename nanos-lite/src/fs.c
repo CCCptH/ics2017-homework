@@ -101,7 +101,7 @@ off_t fs_lseek(int fd, off_t offset, int whence) {
     return get_open_offset(fd);
     break;
   default:
-    //panic("Unhandled whence ID = %d", whence);
+    panic("Unhandled whence ID = %d", whence);
     return -1;
     break;
   }
