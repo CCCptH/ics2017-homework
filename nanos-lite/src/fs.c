@@ -59,28 +59,51 @@ int fs_open(const char* name, int flags, int mode) {
   return -1;
 }
 
+void dispinfo_read(void *buf, off_t offset, size_t len);
+
 ssize_t fs_read(int fd, void* buf, size_t len) {
   assert(fd>=0 && fd<NR_FILES);
-  if (fd < 3) {
-    Log("arg invalid: fd < 3");
-    return 0;
-  }
   int n=fs_filesz(fd) - get_open_offset(fd);
   if (n<len) len = n;
-  ramdisk_read(buf, disk_offset(fd) + get_open_offset(fd), len);
+  switch (fd)
+  {
+  case 0:
+  case 1:
+  case 2:
+    Log("arg invalid: fd < 3");
+    return 0;
+  case FD_DISPINFO:
+    dispinfo_read(buf, get_open_offset(fd), len);
+    break;
+  default:
+    ramdisk_read(buf, disk_offset(fd) + get_open_offset(fd), len);
+    break;
+  }
   set_open_offset(fd, get_open_offset(fd) + len);
   return len;
 }
+void fb_write(const void *buf, off_t offset, size_t len);
 
 ssize_t fs_write(int fd, void* buf, size_t len) {
   assert(fd>=0 && fd<NR_FILES);
-  if (fd < 3) {
-    Log("arg invalid: fd < 3");
-    return 0;
-  }
   int n = fs_filesz(fd) - get_open_offset(fd);
   if (n<len) len = n;
-  ramdisk_write(buf, disk_offset(fd) + get_open_offset(fd), len);
+  
+  switch (fd)
+  {
+  case 0:
+  case 1:
+  case 2:
+    Log("arg invalid: fd < 3");
+    return 0;
+  case FD_FB:
+    fb_write(buf, get_open_offset(fd), len);
+    break;
+  
+  default:
+    ramdisk_write(buf, disk_offset(fd) + get_open_offset(fd), len);
+    break;
+  }
   set_open_offset(fd, get_open_offset(fd) + len);
   return len;
 }
@@ -114,4 +137,5 @@ int fs_close(int fd) {
 
 void init_fs() {
   // TODO: initialize the size of /dev/fb
+  file_table[FD_FB].size = _screen.height * _screen.width * 4;
 }
