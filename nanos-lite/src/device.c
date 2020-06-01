@@ -66,7 +66,7 @@ void init_device() {
   // described in the Navy-apps convention
   int width = _screen.width;
   int height = _screen.height;
-  Log("Inditializing device...");
+  Log("Inditializing device...WIDTH:%dHEIGHT:%d\n", width, height);
   sprintf(dispinfo, "WIDTH:%dHEIGHT:%d\n", width, height);
   //Log("Inditializing device...Done");
 }
