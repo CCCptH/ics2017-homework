@@ -62,6 +62,7 @@ _RegSet* do_syscall(_RegSet *r) {
       break;
     
     case SYS_lseek:
+      Log("--whence--%d", a[3]);
       SYSCALL_ARG1(r) = fs_lseek(a[1], a[2], a[3]);
       break;
 
