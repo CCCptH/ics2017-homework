@@ -2,7 +2,7 @@
 #include <assert.h>
 
 int main() {
-  printf("%d", SEEK_END);
+  printf("%d\n\n", SEEK_END);
   FILE *fp = fopen("/share/texts/num", "r+");
   assert(fp);
   fseek(fp, 0, SEEK_END);
