@@ -66,10 +66,9 @@ ssize_t fs_read(int fd, void* buf, size_t len) {
     return 0;
   }
   int n=fs_filesz(fd) - get_open_offset(fd);
-  if (n>len) n = len;
-  ramdisk_read(buf, disk_offset(fd) + get_open_offset(fd), n);
-  Log("fread!");
-  set_open_offset(fd, get_open_offset(fd) + n);
+  if (n<len) len = n;
+  ramdisk_write(buf, disk_offset(fd) + get_open_offset(fd), len);
+  set_open_offset(fd, get_open_offset(fd) + len);
   return n;
 }
 
