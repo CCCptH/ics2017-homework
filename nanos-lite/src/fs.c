@@ -59,7 +59,7 @@ int fs_open(const char* name, int flags, int mode) {
   return -1;
 }
 
-void dispinfo_read(void *buf, off_t offset, size_t len);
+extern void dispinfo_read(void *buf, off_t offset, size_t len);
 
 ssize_t fs_read(int fd, void* buf, size_t len) {
   assert(fd>=0 && fd<NR_FILES);
@@ -82,7 +82,7 @@ ssize_t fs_read(int fd, void* buf, size_t len) {
   set_open_offset(fd, get_open_offset(fd) + len);
   return len;
 }
-void fb_write(const void *buf, off_t offset, size_t len);
+extern void fb_write(const void *buf, off_t offset, size_t len);
 
 ssize_t fs_write(int fd, void* buf, size_t len) {
   assert(fd>=0 && fd<NR_FILES);
