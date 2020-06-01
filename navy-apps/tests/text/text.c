@@ -2,17 +2,14 @@
 #include <assert.h>
 
 int main() {
-  printf("%d 1 \n\n", SEEK_END);
   FILE *fp = fopen("/share/texts/num", "r+");
-  printf("%d 2 \n\n", SEEK_END);
   assert(fp);
+
   fseek(fp, 0, SEEK_END);
-  printf("%d 3 \n\n", SEEK_END);
+  printf("\n\n\n");
   long size = ftell(fp);
-  printf("%d\n\n", SEEK_END);
   assert(size == 5000);
-  printf("%d\n\n", SEEK_END);
-  
+
   fseek(fp, 500 * 5, SEEK_SET);
   int i, n;
   for (i = 500; i < 1000; i ++) {
