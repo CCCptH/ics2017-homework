@@ -67,6 +67,6 @@ void init_device() {
   int width = _screen.width;
   int height = _screen.height;
   Log("Inditializing device...WIDTH:%dHEIGHT:%d\n", width, height);
-  sprintf(dispinfo, "WIDTH%dHEIGHT%d\n", width, height);
+  strcpy(dispinfo ,"WIDTH:400\nHEIGHT:300");
   //Log("Inditializing device...Done");
 }
