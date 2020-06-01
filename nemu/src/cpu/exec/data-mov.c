@@ -179,7 +179,7 @@ make_EHelper(lea) {
 
 make_EHelper(movsb) {
   rtl_lm(&t0, &cpu.esi, 1);
-  rtl_sm(&cpu.edi, &t0, 1);
+  rtl_sm(&cpu.edi, 1, &t0);
   ++cpu.esi;
   ++cpu.edi;
   print_asm_template2(movsb);
