@@ -41,7 +41,7 @@ void fb_write(const void *buf, off_t offset, size_t len) {
   int screen_x1 = index%width;
   int screen_x2 = (offset+len)/4;
   int screen_y2 = screen_x2/width;
-  Log("-----BEGIN DRAW!-----");
+  //Log("-----BEGIN DRAW!-----");
   if (screen_y2 == screen_y1) {
     _draw_rect(buf, screen_x1, screen_y1, len/4, 1);
   }
@@ -56,7 +56,7 @@ void fb_write(const void *buf, off_t offset, size_t len) {
     _draw_rect(buf+tw*4, 0, screen_y1+1, width, ty);
     _draw_rect(buf+tw*4+ty*width*4, 0, screen_y2, len/4-tw-ty*width,  1);
   }
-  Log("-----DRAW END!-----");
+  // Log("-----DRAW END!-----");
 }
 
 void init_device() {
