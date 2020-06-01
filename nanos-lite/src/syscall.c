@@ -1,7 +1,7 @@
 #include "common.h"
 #include "syscall.h"
 
-
+#include "fs.h"
 
 _RegSet* do_syscall(_RegSet *r) {
   uintptr_t a[4];
@@ -31,6 +31,9 @@ _RegSet* do_syscall(_RegSet *r) {
           _putc(c);
         }
         rs = len;
+      }
+      else if (fd >= 3) {
+        rs = fs_write(fd, buf, len);
       }
       else {
         panic("sys_write error, invalid fd\n");
