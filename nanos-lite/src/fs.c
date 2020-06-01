@@ -69,7 +69,7 @@ ssize_t fs_read(int fd, void* buf, size_t len) {
   if (n<len) len = n;
   ramdisk_read(buf, disk_offset(fd) + get_open_offset(fd), len);
   set_open_offset(fd, get_open_offset(fd) + len);
-  return n;
+  return len;
 }
 
 ssize_t fs_write(int fd, void* buf, size_t len) {
@@ -82,7 +82,7 @@ ssize_t fs_write(int fd, void* buf, size_t len) {
   if (n<len) len = n;
   ramdisk_write(buf, disk_offset(fd) + get_open_offset(fd), len);
   set_open_offset(fd, get_open_offset(fd) + len);
-  return n;
+  return len;
 }
 
 off_t fs_lseek(int fd, off_t offset, int whence) {
