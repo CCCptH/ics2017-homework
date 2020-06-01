@@ -4,8 +4,10 @@
 int main() {
   printf("%d\n\n", SEEK_END);
   FILE *fp = fopen("/share/texts/num", "r+");
+  printf("%d\n\n", SEEK_END);
   assert(fp);
   fseek(fp, 0, SEEK_END);
+  printf("%d\n\n", SEEK_END);
   long size = ftell(fp);
   assert(size == 5000);
 
