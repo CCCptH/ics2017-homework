@@ -75,7 +75,7 @@ ssize_t fs_read(int fd, void* buf, size_t len) {
   case FD_EVENTS:
     return events_read(buf, len);
   case FD_DISPINFO:
-  Log("reading....");
+  //Log("reading....");
     dispinfo_read(buf, get_open_offset(fd), len);
     break;
   default:
