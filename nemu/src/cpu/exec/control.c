@@ -93,5 +93,5 @@ make_EHelper(call_rm) {
 
 make_EHelper(clc) {
   rtl_clc();
-  printf_asm("clc");
+  print_asm("clc");
 }
