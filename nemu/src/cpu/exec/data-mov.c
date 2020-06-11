@@ -178,7 +178,6 @@ make_EHelper(lea) {
 }
 
 make_EHelper(movsb) {
-  TODO();
   rtl_lm(&t0, &cpu.esi, 1);
   rtl_sm(&cpu.edi, 1, &t0);
   ++cpu.esi;
