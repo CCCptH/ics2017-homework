@@ -26,8 +26,8 @@ void paddr_write(paddr_t addr, int len, uint32_t data) {
 }
 
 inline
-bool data_cross_page_boundary () {
-  return 0;
+bool data_cross_page_boundary (vaddr_t addr, int len) {
+  return (addr & 0xfff) + len > 0x1000;
 }
 
 typedef union {
@@ -48,7 +48,7 @@ paddr_t page_translate (vaddr_t vaddr) {
   paddr_t pde_base = cpu.cr3.page_directory_base << 12;
   PDE pd;
   pd.val = paddr_read(pde_base + ((uint32_t)(addr.dir) << 2), 4);
-  assert(!pd.present);
+  assert(pd.present);
   PTE pt;
   pt.val = paddr_read((pd.page_frame<<12)+(addr.page<<2), 4);
   assert(pt.present);
@@ -56,7 +56,7 @@ paddr_t page_translate (vaddr_t vaddr) {
 }
 
 uint32_t vaddr_read(vaddr_t addr, int len) {
-  if (data_cross_page_boundary()) {
+  if (data_cross_page_boundary(addr, len)) {
     Assert(0, "Data cross the page boundary!");
   }
   else {
@@ -67,7 +67,7 @@ uint32_t vaddr_read(vaddr_t addr, int len) {
 }
 
 void vaddr_write(vaddr_t addr, int len, uint32_t data) {
-  if (data_cross_page_boundary()) {
+  if (data_cross_page_boundary(addr, len)) {
     Assert(0, "Data cross the page boundary!");
   } else {
     paddr_t paddr = page_translate(addr);
