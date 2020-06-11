@@ -16,7 +16,7 @@ uintptr_t loader(_Protect *as, const char *filename) {
   int fd = fs_open(filename, 0, 0);
   Log("filename=%s, fd=%d", filename, fd);
   // fs_read(fd, DEFAULT_ENTRY, fs_filesz(fd));
-  long fsz = fs_filesz(fd);
+  int fsz = fs_filesz(fd);
   void* vaddr = DEFAULT_ENTRY;
   void* pg;
   while(fsz > 0) {
