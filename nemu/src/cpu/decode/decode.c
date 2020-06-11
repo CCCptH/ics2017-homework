@@ -321,8 +321,11 @@ void operand_write(Operand *op, rtlreg_t* src) {
 
 // ???
 make_DHelper(mov_cr2r) {
-  TODO();
+  // TODO();
+  decode_op_rm(eip, id_dest, false, id_src, false);
+  rtl_load_cr(&id_src->val, id_src->reg);
 }
 make_DHelper(mov_r2cr) {
-  TODO();
+  // TODO();
+  decode_op_rm(eip, id_src, true, id_dest, false);
 }
