@@ -21,7 +21,9 @@ _RegSet* do_syscall(_RegSet *r) {
       break;
     case SYS_write:
     {
-      //Log("Syscall write");
+      _putc('w');
+      _putc('b');
+      _putc('\n');
       int rs;
       int fd = a[1];
       void* buf = (void*)a[2];
@@ -42,6 +44,9 @@ _RegSet* do_syscall(_RegSet *r) {
         panic("sys_write error, invalid fd\n");
         rs = -1;
       }
+      _putc('w');
+      _putc('e');
+      _putc('\n');
       SYSCALL_ARG1(r) = rs;
     }
     break;
