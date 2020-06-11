@@ -46,6 +46,7 @@ paddr_t page_translate (vaddr_t vaddr, bool write) {
   // Log("cr0:%x", cpu.cr0.val);
   // if (cpu.cr3.val != 0)
   //   Log("cr3:%x", cpu.cr3.val);
+  Log("pgtrans");
   if (cpu.cr0.paging != 1) return vaddr;
   PgAddr addr;
   addr.addr = vaddr;
