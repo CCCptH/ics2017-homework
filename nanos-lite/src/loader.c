@@ -20,7 +20,6 @@ uintptr_t loader(_Protect *as, const char *filename) {
   void* vaddr = DEFAULT_ENTRY;
   void* pg;
   while(fsz > 0) {
-  Log("!!!!!!!!!!!!!!!!!!!!");
     pg = new_page();
     _map(as, vaddr, pg);
     fs_read(fd, pg, PGSIZE );
@@ -28,6 +27,5 @@ uintptr_t loader(_Protect *as, const char *filename) {
     fsz -= PGSIZE;
   }
   fs_close(fd);
-  Log("file load end");
   return (uintptr_t)DEFAULT_ENTRY;
 }
