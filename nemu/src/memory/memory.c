@@ -51,10 +51,10 @@ paddr_t page_translate (vaddr_t vaddr, bool write) {
   paddr_t pde_base = cpu.cr3.page_directory_base << 12;
   PDE pd;
   pd.val = paddr_read(pde_base + ((uint32_t)(addr.dir) << 2), 4);
-  //assert(pd.present);
+  assert(pd.present);
   PTE pt;
   pt.val = paddr_read((pd.page_frame<<12)+(addr.page<<2), 4);
-  //assert(pt.present);
+  assert(pt.present);
   pd.accessed = 1;
   pt.accessed = 1;
   if (write) pt.dirty = 1;
