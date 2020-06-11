@@ -21,7 +21,7 @@ _RegSet* do_syscall(_RegSet *r) {
       break;
     case SYS_write:
     {
-      Log("Syscall write");
+      //Log("Syscall write");
       int rs;
       int fd = a[1];
       void* buf = (void*)a[2];
