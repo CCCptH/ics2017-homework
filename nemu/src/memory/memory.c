@@ -69,25 +69,21 @@ paddr_t page_translate (vaddr_t vaddr, bool write) {
 
 uint32_t vaddr_read(vaddr_t addr, int len) {
   if (data_cross_page_boundary(addr, len)) {
-		//Log("in the read!!!!!!!!!!!!!!!!!!!!!!!!");
-		/* this is a special case, you can handle it later. */
-		int point;
-		paddr_t paddr, low, high;
-		// calculate the split point
-		point = (int)((addr & 0xfff) + len - 0x1000);
-		// get the low address
-		paddr = page_translate(addr, false);
-		low = paddr_read(paddr, len - point);
-		// get the low address
-		paddr = page_translate(addr + len - point, false);
-		high = paddr_read(paddr, point);
-		paddr = (high << ((len - point) << 3)) + low;
-		return paddr;
-	}
-	else {
-		paddr_t paddr = page_translate(addr, false);
-		return paddr_read(paddr, len);
-	}
+    // Assert(0, "Data cross the page boundary!");
+    int p;
+    paddr_t  paddr;
+    uint32_t low, high;
+    p = (int)(addr & 0xffff) + len - 0x1000;
+    paddr = page_translate(addr, false);
+    low = paddr_read(paddr, len-p);
+    paddr = page_translate(addr + len - p, false);
+    high = paddr_read(paddr, p);
+    return (high << ((len-p) << 3)) + low;
+  }
+  else {
+    paddr_t paddr = page_translate(addr, false);
+    return paddr_read(paddr, len);
+  }
   // return paddr_read(addr, len);
 }
 
