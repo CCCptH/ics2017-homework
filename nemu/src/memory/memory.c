@@ -27,7 +27,7 @@ void paddr_write(paddr_t addr, int len, uint32_t data) {
 
 inline
 bool data_cross_page_boundary (vaddr_t addr, int len) {
-  Log("Page data cross page boundary");
+  // Log("Page data cross page boundary");
   return (addr & 0xfff) + len > 0x1000;
 }
 
@@ -57,7 +57,8 @@ paddr_t page_translate (vaddr_t vaddr, bool write) {
   PTE pt;
   paddr_t pt_addr = (pd.page_frame<<12)+(addr.page<<2);
   pt.val = paddr_read(pt_addr, 4);
-  assert(pt.present);
+  // assert(pt.present);
+  
   pd.accessed = 1;
   pt.accessed = 1;
   if (write) pt.dirty = 1;
