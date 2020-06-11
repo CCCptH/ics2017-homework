@@ -257,4 +257,8 @@ static inline void rtl_store_cr(int r, const rtlreg_t* src) {
   }
 }
 
+static inline void rtl_clc() {
+  cpu.eflags.CF = 0;
+}
+
 #endif
