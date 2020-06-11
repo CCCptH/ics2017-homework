@@ -46,7 +46,7 @@ paddr_t page_translate (vaddr_t vaddr, bool write) {
   // Log("cr0:%x", cpu.cr0.val);
   // if (cpu.cr3.val != 0)
   //   Log("cr3:%x", cpu.cr3.val);
-  Log("pgtrans");
+  //Log("pgtrans");
   if (cpu.cr0.paging != 1) return vaddr;
   PgAddr addr;
   addr.addr = vaddr;
@@ -73,7 +73,7 @@ uint32_t vaddr_read(vaddr_t addr, int len) {
     vaddr_t p;
     paddr_t  paddr;
     uint32_t low, high;
-    p = (addr & 0xffff) + len - 0x1000;
+    p = (int)(addr & 0xffff) + len - 0x1000;
     paddr = page_translate(addr, false);
     low = paddr_read(paddr, len-p);
     paddr = page_translate(addr + len - p, false);
@@ -93,7 +93,7 @@ void vaddr_write(vaddr_t addr, int len, uint32_t data) {
     vaddr_t p;
     paddr_t  paddr;
     uint32_t low, high;
-    p = (addr & 0xffff) + len - 0x1000;
+    p = (int)(addr & 0xffff) + len - 0x1000;
     low = (data << (p << 3)) >> (p << 3);
 		high = data >> ((len - p) << 3);
     paddr = page_translate(addr, true);
