@@ -61,7 +61,7 @@ paddr_t page_translate (vaddr_t vaddr, bool write) {
   pd.accessed = 1;
   pt.accessed = 1;
   if (write) {
-    Log("iswrite");
+    Log("iswrite=%d", pt_addr);
     pt.dirty = 1;
   }
   paddr_write(pd_addr, 4, pd.val);
