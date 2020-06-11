@@ -84,6 +84,7 @@ ssize_t fs_read(int fd, void* buf, size_t len) {
     break;
   }
   set_open_offset(fd, get_open_offset(fd) + len);
+  Log("read end");
   return len;
 }
 extern void fb_write(const void *buf, off_t offset, size_t len);
