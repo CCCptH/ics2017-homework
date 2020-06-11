@@ -17,6 +17,8 @@ typedef union {
   };
 } PCB;
 
+void load_prog(const char *filename);
+
 extern PCB *current;
 
 #endif

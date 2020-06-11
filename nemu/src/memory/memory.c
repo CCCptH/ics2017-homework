@@ -41,7 +41,7 @@ typedef union {
 } PgAddr;
 
 inline 
-paddr_t page_translate (vaddr_t vaddr) {
+paddr_t page_translate (vaddr_t vaddr, bool write) {
   Log("cr0:%x", cpu.cr0.val);
   if (cpu.cr3.val != 0)
     Log("cr3:%x", cpu.cr3.val);
@@ -55,6 +55,9 @@ paddr_t page_translate (vaddr_t vaddr) {
   PTE pt;
   pt.val = paddr_read((pd.page_frame<<12)+(addr.page<<2), 4);
   assert(pt.present);
+  pd.accessed = 1;
+  pt.accessed = 1;
+  if (write) pt.dirty = 1;
   return pt.page_frame + addr.offset;
 }
 
@@ -63,7 +66,7 @@ uint32_t vaddr_read(vaddr_t addr, int len) {
     Assert(0, "Data cross the page boundary!");
   }
   else {
-    paddr_t paddr = page_translate(addr);
+    paddr_t paddr = page_translate(addr, false);
     return paddr_read(paddr, len);
   }
   // return paddr_read(addr, len);
@@ -73,7 +76,7 @@ void vaddr_write(vaddr_t addr, int len, uint32_t data) {
   if (data_cross_page_boundary(addr, len)) {
     Assert(0, "Data cross the page boundary!");
   } else {
-    paddr_t paddr = page_translate(addr);
+    paddr_t paddr = page_translate(addr, true);
     return paddr_write(paddr, len, data);
   }
   //paddr_write(addr, len, data);

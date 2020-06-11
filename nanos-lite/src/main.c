@@ -1,4 +1,5 @@
 #include "common.h"
+#include "proc.h"
 
 /* Uncomment these macros to enable corresponding functionality. */
 #define HAS_ASYE
@@ -29,9 +30,12 @@ int main() {
 #endif
 
   init_fs();
-
+#ifndef HAS_PTE
   uint32_t entry = loader(NULL, "/bin/hello");
   ((void (*)(void))entry)();
+#else
+  load_prog("bin/dummy");
+#endif
 
   panic("Should not reach here");
 }

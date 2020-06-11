@@ -1,7 +1,7 @@
 #include "common.h"
 #include "fs.h"
 
-#define DEFAULT_ENTRY ((void *)0x4000000)
+#define DEFAULT_ENTRY ((void *)0x8048000)
 
 void ramdisk_read(void *, off_t, size_t);
 void ramdisk_write(const void*, off_t, size_t);
