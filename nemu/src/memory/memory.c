@@ -42,6 +42,8 @@ typedef union {
 
 inline 
 paddr_t page_translate (vaddr_t vaddr) {
+  Log("cr0:%x", cpu.cr0.val);
+  Log("cr3:%x", cpu.cr3.val);
   if (cpu.cr0.paging != 1) return vaddr;
   PgAddr addr;
   addr.addr = vaddr;
