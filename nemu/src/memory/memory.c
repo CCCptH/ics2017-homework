@@ -41,31 +41,45 @@ typedef union {
   };
 } PgAddr;
 
-inline 
-paddr_t page_translate (vaddr_t vaddr, bool write) {
-  // Log("cr0:%x", cpu.cr0.val);
-  // if (cpu.cr3.val != 0)
-  //   Log("cr3:%x", cpu.cr3.val);
-  //Log("pgtrans");
-  if (cpu.cr0.paging != 1) return vaddr;
-  PgAddr addr;
-  addr.addr = vaddr;
-  paddr_t pde_base = cpu.cr3.page_directory_base << 12;
-  paddr_t pd_addr = pde_base + ((uint32_t)(addr.dir) << 2);
-  PDE pd;
-  pd.val = paddr_read(pd_addr, 4);
-  Assert(pd.present, "addr=%x, pde=%x", vaddr, pd.val);
-  PTE pt;
-  paddr_t pt_addr = (pd.page_frame<<12)+((uint32_t)(addr.page)<<2);
-  pt.val = paddr_read(pt_addr, 4);
-  Assert(pt.present, "addr=%x, pde=%x, pte=%x, ptaddr=%x", vaddr, pd.val, pt.val, pt_addr);
-  pd.accessed = 1;
-  pt.accessed = 1;
-  if (write) pt.dirty = 1;
-  paddr_write(pd_addr, 4, pd.val);
-  paddr_write(pt_addr, 4, pt.val);
-  return (pt.page_frame << 12)+ addr.offset;
+uint32_t page_translate(vaddr_t addr, bool iswrite) {
+	if (cpu.cr0.paging == 1) {
+		paddr_t pde_base = cpu.cr3.val;
+		paddr_t pde_address = pde_base + ((addr >> 22) << 2);
+		paddr_t pde = paddr_read(pde_address, 4);
+		if (!(pde & 0x1)) {
+			Log("addr = 0x%x, iswrite = %d", addr, iswrite);
+			Log("pde = 0x%x, pde_base = 0x%x, pde_address = 0x%x", pde, pde_base, pde_address);
+			assert(0);
+		}
+
+		paddr_t pte_base = pde & 0xfffff000;
+		//paddr_t pte_address = pte_base + (((addr & 0x003ff000) >> 12) << 2);
+		paddr_t pte_address = pte_base + ((addr & 0x003ff000) >> 10);
+		paddr_t pte = paddr_read(pte_address, 4);
+		if (!(pte & 0x1)) {
+			Log("addr = 0x%x, iswrite = %d", addr, iswrite);
+			Log("pte = 0x%x", pte);
+			assert(0);
+		}
+		paddr_t page_address = (pte & 0xfffff000) + (addr & 0xfff);
+		
+		// set the access and dirty
+		pde = pde | 0x20;
+		pte = pte | 0x20;
+		if (iswrite) {
+			pde = pde | 0x40;
+			pte = pte | 0x40;
+		}
+		paddr_write(pde_address, 4, pde);
+		paddr_write(pte_address, 4, pte);
+	
+		return page_address;
+	}
+	else {
+		return addr;
+	}
 }
+
 
 uint32_t vaddr_read(vaddr_t addr, int len) {
   if (data_cross_page_boundary(addr, len)) {
