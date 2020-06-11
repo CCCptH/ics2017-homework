@@ -60,10 +60,7 @@ paddr_t page_translate (vaddr_t vaddr, bool write) {
   Assert(pt.present, "addr=%x, pde=%x, pte=%x, ptaddr=%x", vaddr, pd.val, pt.val, pt_addr);
   pd.accessed = 1;
   pt.accessed = 1;
-  if (write) {
-    Log("iswrite=%d", pt_addr);
-    pt.dirty = 1;
-  }
+  if (write) pt.dirty = 1;
   paddr_write(pd_addr, 4, pd.val);
   paddr_write(pt_addr, 4, pt.val);
   return (pt.page_frame << 12)+ addr.offset;
