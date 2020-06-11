@@ -27,6 +27,7 @@ void paddr_write(paddr_t addr, int len, uint32_t data) {
 
 inline
 bool data_cross_page_boundary (vaddr_t addr, int len) {
+  Log("Page data cross page boundary");
   return (addr & 0xfff) + len > 0x1000;
 }
 
