@@ -9,10 +9,6 @@ void ramdisk_write(const void*, off_t, size_t);
 size_t get_ramdisk_size();
 extern uint8_t ramdisk_start;
 
-int axx (b , c)
-  int b;
-  int c;
-{ return 1; }
 
 uintptr_t loader(_Protect *as, const char *filename) {
   // TODO();
@@ -31,6 +27,6 @@ uintptr_t loader(_Protect *as, const char *filename) {
     fsz -= PGSIZE;
   }
   fs_close(fd);
-  Log("file load end");
+  Log("file load end&d", PGSIZE);
   return (uintptr_t)DEFAULT_ENTRY;
 }
