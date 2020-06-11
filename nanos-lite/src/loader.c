@@ -22,9 +22,9 @@ uintptr_t loader(_Protect *as, const char *filename) {
   while(fsz > 0) {
     pg = new_page();
     _map(as, vaddr, pg);
-    fs_read(fd, pg, 4096 );
-    vaddr += 4096;
-    fsz -= 4096;
+    fs_read(fd, pg, PGSIZE );
+    vaddr += PGSIZE;
+    fsz -= PGSIZE;
   }
   fs_close(fd);
   Log("file load end");
