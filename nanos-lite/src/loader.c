@@ -17,9 +17,10 @@ uintptr_t loader(_Protect *as, const char *filename) {
   Log("filename=%s, fd=%d", filename, fd);
   // fs_read(fd, DEFAULT_ENTRY, fs_filesz(fd));
   size_t fsz = fs_filesz(fd);
-  Log("%d", fsz/PGSIZE);
   void* vaddr = DEFAULT_ENTRY;
   void* pg;
+  new_page();
+  Log("!!!!!!!!!!!!!!!!!!!!");
   while(fsz > 0) {
     pg = new_page();
     _map(as, vaddr, pg);
