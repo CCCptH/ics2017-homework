@@ -63,7 +63,6 @@ extern void dispinfo_read(void *buf, off_t offset, size_t len);
 extern size_t events_read(void *buf, size_t len) ;
 ssize_t fs_read(int fd, void* buf, size_t len) {
   assert(fd>=0 && fd<NR_FILES);
-  Log("fs_read");
   int n=fs_filesz(fd) - get_open_offset(fd);
   if (n<len) len = n;
   switch (fd)
@@ -84,13 +83,13 @@ ssize_t fs_read(int fd, void* buf, size_t len) {
     break;
   }
   set_open_offset(fd, get_open_offset(fd) + len);
-  Log("read end");
   return len;
 }
 extern void fb_write(const void *buf, off_t offset, size_t len);
 
 ssize_t fs_write(int fd, void* buf, size_t len) {
   assert(fd>=0 && fd<NR_FILES);
+  Log("fs_write");
   int n = fs_filesz(fd) - get_open_offset(fd);
   if (n<len) len = n;
   
@@ -110,6 +109,7 @@ ssize_t fs_write(int fd, void* buf, size_t len) {
     break;
   }
   set_open_offset(fd, get_open_offset(fd) + len);
+  Log("write_end");
   return len;
 }
 
