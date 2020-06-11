@@ -24,7 +24,6 @@ _RegSet* do_syscall(_RegSet *r) {
       _putc('w');
       _putc('b');
       _putc('\n');
-      panic();
       int rs;
       int fd = a[1];
       void* buf = (void*)a[2];
