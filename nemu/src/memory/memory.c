@@ -49,15 +49,19 @@ paddr_t page_translate (vaddr_t vaddr, bool write) {
   PgAddr addr;
   addr.addr = vaddr;
   paddr_t pde_base = cpu.cr3.page_directory_base << 12;
+  paddr_t pd_addr = pde_base + ((uint32_t)(addr.dir) << 2);
   PDE pd;
-  pd.val = paddr_read(pde_base + ((uint32_t)(addr.dir) << 2), 4);
+  pd.val = paddr_read(pd_addr, 4);
   assert(pd.present);
   PTE pt;
-  pt.val = paddr_read((pd.page_frame<<12)+(addr.page<<2), 4);
+  paddr_t pt_addr = (pd.page_frame<<12)+(addr.page<<2);
+  pt.val = paddr_read(pt_addr, 4);
   assert(pt.present);
   pd.accessed = 1;
   pt.accessed = 1;
   if (write) pt.dirty = 1;
+  paddr_write(pd_addr, 4, pd.val);
+  paddr_write(pt_addr, 4, pt.val);
   return (pt.page_frame << 12)+ addr.offset;
 }
 
