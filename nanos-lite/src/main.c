@@ -31,7 +31,7 @@ int main() {
 
   init_fs();
 #ifndef HAS_PTE
-  uint32_t entry = loader(NULL, "/bin/hello");
+  uint32_t entry = loader(NULL, "/bin/bmptest");
   ((void (*)(void))entry)();
 #else
   load_prog("/bin/text");
