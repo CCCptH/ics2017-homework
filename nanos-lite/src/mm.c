@@ -23,15 +23,12 @@ int mm_brk(uint32_t new_brk) {
   }
   else {
     if (new_brk > current->max_brk) {
-      void* pg;
-      int len = new_brk - current->max_brk;
-      uintptr_t va = PGROUNDUP(current->max_brk);
-      while (len>0)
-      {
-        pg = new_page();
+      uintptr_t begin = PGROUNDUP(current->max_brk);
+      uintptr_t end = PGROUNDDOWN(new_brk);
+      if ((new_brk & 0xfff) == 0) end-=PGSIZE;
+      for (uintptr_t va = begin; va <= end; va+=PGSIZE) {
+        void* pg = new_page();
         _map(&current->as, (void*)va, pg);
-        va += PGSIZE;
-        len -= PGSIZE;
       }
       current->max_brk = new_brk;
     }
