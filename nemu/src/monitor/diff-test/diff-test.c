@@ -172,7 +172,7 @@ void difftest_step(uint32_t eip) {
   #ifdef DEBUG
     printf(" - Instruction num: %ld\n", instruction_counter);
   #endif
-    // nemu_state = NEMU_END;
+    nemu_state = NEMU_END;
     if(which > -1)
       printf(" - Difference in %s. QEMU: %x, NEMU: %x\n", reg_name(which, 4), r.array[which], cpu.gpr[which]._32);
     else if (which == -1)
