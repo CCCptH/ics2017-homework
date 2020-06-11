@@ -34,7 +34,7 @@ int main() {
   uint32_t entry = loader(NULL, "/bin/hello");
   ((void (*)(void))entry)();
 #else
-  load_prog("/bin/lua");
+  load_prog("/bin/events");
 #endif
 
   panic("Should not reach here");
