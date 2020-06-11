@@ -57,8 +57,7 @@ paddr_t page_translate (vaddr_t vaddr, bool write) {
   PTE pt;
   paddr_t pt_addr = (pd.page_frame<<12)+(addr.page<<2);
   pt.val = paddr_read(pt_addr, 4);
-  // assert(pt.present);
-  
+  assert(pt.present);
   pd.accessed = 1;
   pt.accessed = 1;
   if (write) pt.dirty = 1;
