@@ -53,11 +53,11 @@ paddr_t page_translate (vaddr_t vaddr, bool write) {
   paddr_t pd_addr = pde_base + ((uint32_t)(addr.dir) << 2);
   PDE pd;
   pd.val = paddr_read(pd_addr, 4);
-  Assert(pd.present, "addr=%x", vaddr);
+  Assert(pd.present, "addr=%x, pde=%x", vaddr, pd.val);
   PTE pt;
   paddr_t pt_addr = (pd.page_frame<<12)+(addr.page<<2);
   pt.val = paddr_read(pt_addr, 4);
-  Assert(pt.present, "addr=%x", vaddr);
+  Assert(pt.present, "addr=%x, pde=%x, pte=%x", vaddr, pd.val, pt.val);
   pd.accessed = 1;
   pt.accessed = 1;
   if (write) pt.dirty = 1;
