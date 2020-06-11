@@ -15,8 +15,8 @@ ifeq ($(ISA), riscv64)
 CROSS_COMPILE = riscv64-unknown-linux-gnu-
 endif
 
-AS = $(CROSS_COMPILE)gcc
-CC = $(CROSS_COMPILE)gcc
+AS = $(CROSS_COMPILE)gcc-8
+CC = $(CROSS_COMPILE)gcc-8
 CXX = $(CROSS_COMPILE)g++
 LD = $(CROSS_COMPILE)ld
 OBJCOPY = $(CROSS_COMPILE)objcopy
