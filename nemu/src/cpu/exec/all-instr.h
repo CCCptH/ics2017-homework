@@ -14,6 +14,7 @@ make_EHelper(jmp);      // todo: add to opcode_table
 make_EHelper(jcc);      // todo: add to opcode_table
 make_EHelper(jmp_rm);   // todo: add to opcode_table
 make_EHelper(call_rm);  // todo: add to opcode_table
+make_EHelper(clc);
 
 // arith
 make_EHelper(add);      // todo: add to opcode_table

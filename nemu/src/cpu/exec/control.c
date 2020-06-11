@@ -89,3 +89,9 @@ make_EHelper(call_rm) {
   decoding.is_jmp = 1;
   print_asm("call *%s", id_dest->str);
 }
+
+
+make_EHelper(clc) {
+  rtl_clc();
+  printf_asm("clc");
+}
