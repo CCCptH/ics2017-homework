@@ -9,6 +9,11 @@ void ramdisk_write(const void*, off_t, size_t);
 size_t get_ramdisk_size();
 extern uint8_t ramdisk_start;
 
+int axx (b , c)
+  int b;
+  int c;
+{ return 1; }
+
 uintptr_t loader(_Protect *as, const char *filename) {
   // TODO();
   // ramdisk_read(DEFAULT_ENTRY, 0, get_ramdisk_size());
