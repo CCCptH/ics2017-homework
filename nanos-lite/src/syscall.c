@@ -3,6 +3,8 @@
 
 #include "fs.h"
 
+int mm_brk(uint32_t);
+
 _RegSet* do_syscall(_RegSet *r) {
   uintptr_t a[4];
   a[0] = SYSCALL_ARG1(r);
@@ -45,7 +47,7 @@ _RegSet* do_syscall(_RegSet *r) {
 
     case SYS_brk:
     {
-      SYSCALL_ARG1(r) = 0;
+      SYSCALL_ARG1(r) = mm_brk(a[0]);
     }
     break;
 
