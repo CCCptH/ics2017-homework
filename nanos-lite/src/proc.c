@@ -29,13 +29,13 @@ void load_prog(const char *filename) {
 static PCB* curr_game = &pcb[1];
 
 void switch_game() {
-  curr_game = &pcb[1] == curr_game? &pcb[2] : &pcb[1];
+  curr_game = &pcb[0] == curr_game? &pcb[2] : &pcb[0];
 }
 
 _RegSet* schedule(_RegSet *prev) {
   current->tf = prev;
   //current = &pcb[0];
-  current = (current == &pcb[0] ? curr_game : &pcb[0]);
+  current = (current == &pcb[1] ? curr_game : &pcb[1]);
   /*
   static int counter = 0;
   if (current == &pcb[0] && counter < 300) {
