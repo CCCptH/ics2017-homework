@@ -26,10 +26,12 @@ void load_prog(const char *filename) {
   pcb[i].tf = _umake(&pcb[i].as, stack, stack, (void *)entry, NULL, NULL);
 }
 
+static PCB* curr_game = &pcb[1];
+
 _RegSet* schedule(_RegSet *prev) {
   current->tf = prev;
   //current = &pcb[0];
-  current = (current == &pcb[0] ? &pcb[1] : &pcb[0]);
+  current = (current == &pcb[0] ? curr_game : &pcb[0]);
   /*
   static int counter = 0;
   if (current == &pcb[0] && counter < 300) {
