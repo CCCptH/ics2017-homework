@@ -88,8 +88,8 @@ _RegSet *_umake(_Protect *p, _Area ustack, _Area kstack, void *entry, char *cons
     *ptr-- = 0x0; 
   }
 
-  //*ptr-- = 0x2 | FL_IF; // eflags
-  *ptr-- = 0x202;
+  *ptr-- = 0x2 | FL_IF; // eflags
+  //*ptr-- = 0x202;
   *ptr-- = 0x8; // cs
   *ptr-- = (uint32_t)entry;  //eip
   *ptr-- = 0x0; // error code
