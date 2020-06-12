@@ -6,6 +6,7 @@ extern _RegSet* schedule(_RegSet *prev);
 static _RegSet* do_event(_Event e, _RegSet* r) {
   switch (e.event) {
     case _EVENT_SYSCALL:
+      schedule(r);
       return do_syscall(r);
       // break;
     case _EVENT_TRAP:
