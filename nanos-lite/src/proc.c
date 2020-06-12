@@ -26,7 +26,7 @@ void load_prog(const char *filename) {
   pcb[i].tf = _umake(&pcb[i].as, stack, stack, (void *)entry, NULL, NULL);
 }
 
-static PCB* curr_game = &pcb[1];
+static PCB* curr_game = &pcb[0];
 
 void switch_game() {
   curr_game = &pcb[0] == curr_game? &pcb[2] : &pcb[0];
