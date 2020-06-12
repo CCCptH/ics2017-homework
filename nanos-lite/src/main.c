@@ -35,6 +35,8 @@ int main() {
   ((void (*)(void))entry)();
 #else
   load_prog("/bin/text");
+
+  _trap();
 #endif
 
   panic("Should not reach here");
