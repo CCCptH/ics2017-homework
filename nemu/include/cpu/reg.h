@@ -61,6 +61,8 @@ typedef struct {
     } eflags;
   };
 
+  bool INTR;
+
   struct {
     uint32_t base;
     uint16_t limit;
