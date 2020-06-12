@@ -16,6 +16,10 @@ size_t events_read(void *buf, size_t len) {
 		key ^= 0x8000;
 		down = true;
 	}
+  if (down && key == _KEY_F12) {
+    extern void switch_game();
+    switch_game();
+  }
 	if (key == _KEY_NONE) {
 		unsigned long t = _uptime();
 		sprintf(buf, "t %d\n", t);
