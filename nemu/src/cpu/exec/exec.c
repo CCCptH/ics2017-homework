@@ -254,10 +254,10 @@ void exec_wrapper(bool print_flag) {
   if (cpu.INTR & cpu.eflags.IF) {
     cpu.INTR = false;
     raise_intr(32, cpu.eip);
-    update_eip();
+    // update_eip();
   }
 
-  // update_eip();
+  update_eip();
 
 #ifdef DIFF_TEST
   void difftest_step(uint32_t);
